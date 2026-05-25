@@ -10,17 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 const start = async () => {
-  await payload.init({
-    secret: process.env.PAYLOAD_SECRET!,
-    mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
-    express: app,
-    onInit: () => {
-      payload.logger.info(`Payload Admin: ${payload.getAdminURL()}`);
-    },
-  });
-
-  app.use('/media', express.static(path.resolve(__dirname, '../media')));
-
+  // Custom routes must be registered BEFORE payload.init() to avoid Payload's 404 handler
   app.get('/seed', async (req, res) => {
     if (req.query.secret !== process.env.PAYLOAD_SECRET) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -33,6 +23,16 @@ const start = async () => {
     }
   });
 
+  await payload.init({
+    secret: process.env.PAYLOAD_SECRET!,
+    mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
+    express: app,
+    onInit: () => {
+      payload.logger.info(`Payload Admin: ${payload.getAdminURL()}`);
+    },
+  });
+
+  app.use('/media', express.static(path.resolve(process.cwd(), 'media')));
   app.use(express.static(path.resolve(__dirname, '../public')));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/admin')) return next();
