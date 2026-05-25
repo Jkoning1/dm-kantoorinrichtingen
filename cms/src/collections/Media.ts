@@ -1,3 +1,4 @@
+import path from 'path';
 import { CollectionConfig } from 'payload/types';
 
 export const Media: CollectionConfig = {
@@ -5,7 +6,7 @@ export const Media: CollectionConfig = {
   access: { read: () => true },
   upload: {
     staticURL: '/media',
-    staticDir: 'media',
+    staticDir: path.resolve(process.cwd(), 'media'),
     adminThumbnail: 'thumbnail',
     imageSizes: [
       { name: 'thumbnail', width: 400, height: 300, position: 'centre' },
