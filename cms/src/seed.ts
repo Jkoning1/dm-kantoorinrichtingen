@@ -171,6 +171,7 @@ async function seedCollection(collectionSlug: string, items: object[], uniqueFie
 async function seed() {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET || 'dev-secret',
+    mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
     local: true,
   });
 

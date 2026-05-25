@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 8080;
 const start = async () => {
   await payload.init({
     secret: process.env.PAYLOAD_SECRET!,
+    mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
     express: app,
     onInit: () => {
       payload.logger.info(`Payload Admin: ${payload.getAdminURL()}`);

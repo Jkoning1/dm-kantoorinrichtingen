@@ -11,8 +11,6 @@ import { HomeContent } from './globals/HomeContent';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
-  mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
-  secret: process.env.PAYLOAD_SECRET || 'dm-kantoorinrichtingen-dev-secret',
 
   admin: {
     user: 'users',
@@ -42,13 +40,13 @@ export default buildConfig({
     'http://localhost:3000',
     'http://localhost:5173',
     process.env.FRONTEND_URL || '',
-  ].filter(Boolean),
+  ].filter(Boolean) as string[],
 
   csrf: [
     'http://localhost:3000',
     'http://localhost:5173',
     process.env.FRONTEND_URL || '',
-  ].filter(Boolean),
+  ].filter(Boolean) as string[],
 
   upload: {
     limits: {
