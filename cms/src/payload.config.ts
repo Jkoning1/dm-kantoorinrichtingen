@@ -1,0 +1,66 @@
+import { buildConfig } from 'payload/config';
+import path from 'path';
+import { Projects } from './collections/Projects';
+import { Services } from './collections/Services';
+import { Media } from './collections/Media';
+import { TeamMembers } from './collections/TeamMembers';
+import { Pages } from './collections/Pages';
+import { FAQ } from './collections/FAQ';
+import { SiteSettings } from './globals/SiteSettings';
+import { HomeContent } from './globals/HomeContent';
+
+export default buildConfig({
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
+  mongoURL: process.env.DATABASE_URI || 'mongodb://localhost:27017/dm-kantoorinrichtingen',
+  secret: process.env.PAYLOAD_SECRET || 'dm-kantoorinrichtingen-dev-secret',
+
+  admin: {
+    user: 'users',
+    meta: {
+      titleSuffix: '— DM Kantoorinrichtingen CMS',
+    },
+  },
+
+  collections: [
+    Projects,
+    Services,
+    Media,
+    TeamMembers,
+    Pages,
+    FAQ,
+    {
+      slug: 'users',
+      auth: true,
+      admin: { useAsTitle: 'email' },
+      fields: [],
+    },
+  ],
+
+  globals: [SiteSettings, HomeContent],
+
+  cors: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    process.env.FRONTEND_URL || '',
+  ].filter(Boolean),
+
+  csrf: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    process.env.FRONTEND_URL || '',
+  ].filter(Boolean),
+
+  upload: {
+    limits: {
+      fileSize: 10_000_000,
+    },
+  },
+
+  typescript: {
+    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  },
+
+  graphQL: {
+    disable: true,
+  },
+});

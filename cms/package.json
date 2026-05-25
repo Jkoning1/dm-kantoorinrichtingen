@@ -1,0 +1,29 @@
+{
+  "name": "dm-kantoorinrichtingen-cms",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon --watch src --ext ts --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "seed": "PAYLOAD_CONFIG_PATH=src/payload.config.ts ts-node src/seed.ts"
+  },
+  "dependencies": {
+    "payload": "^2.30.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "ts-node": "^10.9.2",
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
