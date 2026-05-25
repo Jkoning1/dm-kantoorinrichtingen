@@ -98,7 +98,8 @@ export async function getFAQItems(): Promise<FAQItem[]> {
 
 export async function getSiteSettings(): Promise<SiteSettings> {
   try {
-    return await fetchGlobal<SiteSettings>('site-settings');
+    const data = await fetchGlobal<Partial<SiteSettings>>('site-settings');
+    return { ...mockSiteSettings, ...data };
   } catch {
     return mockSiteSettings;
   }
@@ -106,7 +107,8 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 
 export async function getHomeContent(): Promise<HomeContent> {
   try {
-    return await fetchGlobal<HomeContent>('home-content');
+    const data = await fetchGlobal<Partial<HomeContent>>('home-content');
+    return { ...mockHomeContent, ...data };
   } catch {
     return mockHomeContent;
   }
