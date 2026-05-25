@@ -44,12 +44,120 @@ export const seedProjects = [
 ];
 
 export const seedServices = [
-  { title: 'Strategisch Advies', slug: 'strategisch-advies', shortDescription: 'We analyseren uw werkcultuur, doelstellingen en ruimte om een integraal inrichtingsplan te maken dat uw organisatie écht vooruit helpt.', icon: 'Target', order: 1 },
-  { title: 'Ergonomisch Ontwerp', slug: 'ergonomisch-ontwerp', shortDescription: 'Gezonde werkplekken die ziekteverzuim verminderen en productiviteit verhogen. Wij zijn gecertificeerde ergonomie-adviseurs.', icon: 'Heart', order: 2 },
-  { title: 'Interieurdesign', slug: 'interieurdesign', shortDescription: 'Van concept tot realisatie: wij ontwerpen kantooromgevingen die uw merkidentiteit versterken en medewerkers inspireren.', icon: 'Pencil', order: 3 },
-  { title: 'Projectinrichting', slug: 'projectinrichting', shortDescription: 'Volledige levering en plaatsing van kantoormeubilair van top-A-merken, met garantie en nazorg voor de lange termijn.', icon: 'Hammer', order: 4 },
-  { title: 'Duurzaamheid & Circulariteit', slug: 'duurzaamheid-circulariteit', shortDescription: 'Wij helpen u een kantooromgeving te creëren die bijdraagt aan uw ESG-doelstellingen en CO₂-reductie.', icon: 'Leaf', order: 5 },
-  { title: 'Hybride Werkplek', slug: 'hybride-werkplek', shortDescription: 'Flexibele kantooromgevingen die optimaal werken voor thuiswerkers, deeltijdmedewerkers en internationale teams.', icon: 'Monitor', order: 6 },
+  {
+    title: 'Strategisch Advies',
+    slug: 'strategisch-advies',
+    shortDescription: 'We analyseren uw werkcultuur, doelstellingen en ruimte om een integraal inrichtingsplan te maken dat uw organisatie écht vooruit helpt.',
+    icon: 'Target',
+    order: 1,
+    features: [
+      { icon: 'Target', title: 'Werkplekanalyse', description: 'Grondige analyse van uw huidige werksituatie, bezettingsgraad en medewerkersbehoeften.' },
+      { icon: 'Users', title: 'Stakeholdergesprekken', description: 'We interviewen medewerkers en management om draagvlak te creëren en wensen te inventariseren.' },
+      { icon: 'Lightbulb', title: 'Conceptontwikkeling', description: 'Op basis van onze analyse ontwikkelen wij een toekomstbestendig inrichtingsconcept.' },
+      { icon: 'Layout', title: 'Ruimteplanning', description: 'Efficiënte verdeling van zones: focuswerkplekken, overlegruimtes en sociale plekken.' },
+    ],
+    benefits: [
+      { text: 'Hogere medewerkerstevredenheid' },
+      { text: 'Betere benutting van uw vierkante meters' },
+      { text: 'Toekomstbestendig inrichtingsplan' },
+      { text: 'Draagvlak door participatieve aanpak' },
+    ],
+  },
+  {
+    title: 'Ergonomisch Ontwerp',
+    slug: 'ergonomisch-ontwerp',
+    shortDescription: 'Gezonde werkplekken die ziekteverzuim verminderen en productiviteit verhogen. Wij zijn gecertificeerde ergonomie-adviseurs.',
+    icon: 'Heart',
+    order: 2,
+    features: [
+      { icon: 'Heart', title: 'Ergonomische keuring', description: 'Meting en beoordeling van huidige werkplekken op ergonomische risicofactoren.' },
+      { icon: 'Monitor', title: 'Schermwerkplek optimalisatie', description: 'Correcte positionering van beeldscherm, stoel en bureau voor optimale houding.' },
+      { icon: 'Zap', title: 'Zit-sta werkplekken', description: 'Advies en levering van elektrisch verstelbare bureaus voor afwisselend werken.' },
+      { icon: 'Users', title: 'Medewerkerstraining', description: 'Trainingen over gezond werken, pauzegedrag en instellingen van de werkplek.' },
+    ],
+    benefits: [
+      { text: 'Gemiddeld 30% minder klachten aan nek en rug' },
+      { text: 'Aantoonbare reductie van ziekteverzuim' },
+      { text: 'Hogere concentratie en productiviteit' },
+      { text: 'Voldoet aan Arbo-wetgeving' },
+    ],
+  },
+  {
+    title: 'Interieurdesign',
+    slug: 'interieurdesign',
+    shortDescription: 'Van concept tot realisatie: wij ontwerpen kantooromgevingen die uw merkidentiteit versterken en medewerkers inspireren.',
+    icon: 'Pencil',
+    order: 3,
+    features: [
+      { icon: 'Pencil', title: 'Moodboard & conceptpresentatie', description: 'Visuele presentatie van stijl, kleuren, materialen en sfeer van uw nieuwe kantoor.' },
+      { icon: 'Layout', title: '3D-visualisaties', description: 'Fotorealistische renders zodat u het eindresultaat al ziet voordat er een schroef is gedraaid.' },
+      { icon: 'Hammer', title: 'Materialenadvies', description: 'Selectie van duurzame, onderhoudsarme materialen die passen bij uw budget en uitstraling.' },
+      { icon: 'ShieldCheck', title: 'Projectbegeleiding', description: 'Wij coördineren alle leveranciers en aannemers voor een zorgeloze realisatie.' },
+    ],
+    benefits: [
+      { text: 'Uniek ontwerp dat past bij uw merkidentiteit' },
+      { text: 'Hogere aantrekkingskracht op talent' },
+      { text: 'Indrukwekkende eerste indruk voor klanten' },
+      { text: 'Tijdige oplevering binnen budget' },
+    ],
+  },
+  {
+    title: 'Projectinrichting',
+    slug: 'projectinrichting',
+    shortDescription: 'Volledige levering en plaatsing van kantoormeubilair van top-A-merken, met garantie en nazorg voor de lange termijn.',
+    icon: 'Hammer',
+    order: 4,
+    features: [
+      { icon: 'Hammer', title: 'A-merk meubilair', description: 'Wij werken uitsluitend met gerenommeerde merken als Steelcase, Vitra en Kinnarps.' },
+      { icon: 'Target', title: 'Levering & montage', description: 'Volledige verzorging van transport, montage en inrichting op afgesproken datum.' },
+      { icon: 'ShieldCheck', title: 'Kwaliteitscontrole', description: 'Elke werkplek wordt gecontroleerd en afgesteld voor oplevering aan uw medewerkers.' },
+      { icon: 'Zap', title: 'Nazorg & garantie', description: 'Minimaal 5 jaar garantie en een serviceteam dat binnen 48 uur ter plaatse is.' },
+    ],
+    benefits: [
+      { text: 'Minimaal 5 jaar garantie op alle producten' },
+      { text: 'Één aanspreekpunt voor hele project' },
+      { text: 'Flexibele levering buiten kantoortijden' },
+      { text: 'Oud meubilair afvoer inbegrepen' },
+    ],
+  },
+  {
+    title: 'Duurzaamheid & Circulariteit',
+    slug: 'duurzaamheid-circulariteit',
+    shortDescription: 'Wij helpen u een kantooromgeving te creëren die bijdraagt aan uw ESG-doelstellingen en CO₂-reductie.',
+    icon: 'Leaf',
+    order: 5,
+    features: [
+      { icon: 'Leaf', title: 'Duurzaamheidsscan', description: 'Analyse van uw huidige inventaris en inrichting op circulariteitspotentieel.' },
+      { icon: 'Target', title: 'Refurbishment', description: 'Bestaand meubilair opknappen, herbekleden en hergebruiken in plaats van weggooien.' },
+      { icon: 'ShieldCheck', title: 'Gecertificeerde producten', description: 'Wij leveren uitsluitend producten met Cradle to Cradle, FSC of vergelijkbare certificering.' },
+      { icon: 'Users', title: 'CO₂-rapportage', description: 'Rapportage van de CO₂-footprint van uw inrichting voor uw duurzaamheidsverslag.' },
+    ],
+    benefits: [
+      { text: 'Aantoonbare bijdrage aan ESG-doelstellingen' },
+      { text: 'Kostenbesparing door hergebruik' },
+      { text: 'Positief imago bij medewerkers en klanten' },
+      { text: 'Voldoet aan groeiende duurzaamheidswetgeving' },
+    ],
+  },
+  {
+    title: 'Hybride Werkplek',
+    slug: 'hybride-werkplek',
+    shortDescription: 'Flexibele kantooromgevingen die optimaal werken voor thuiswerkers, deeltijdmedewerkers en internationale teams.',
+    icon: 'Monitor',
+    order: 6,
+    features: [
+      { icon: 'Monitor', title: 'Activity-based working', description: 'Verschillende werkzones voor focus, samenwerking, bellen en ontspanning.' },
+      { icon: 'Zap', title: 'Technologie-integratie', description: 'Naadloze integratie van AV-systemen, booking tools en smart office oplossingen.' },
+      { icon: 'Layout', title: 'Flexibele indelingen', description: 'Modulair meubilair dat eenvoudig omgesteld kan worden naar groepsgrootte en behoefte.' },
+      { icon: 'Users', title: 'Thuiswerkadvies', description: 'Ook advies en levering van ergonomische thuiswerkplekken voor uw medewerkers.' },
+    ],
+    benefits: [
+      { text: 'Hogere bezettingsgraad van uw kantoorruimte' },
+      { text: 'Medewerkers komen graag naar kantoor' },
+      { text: 'Naadloze samenwerking on- en offline' },
+      { text: 'Schaalbaar bij groei of krimp' },
+    ],
+  },
 ];
 
 export const seedTeamMembers = [

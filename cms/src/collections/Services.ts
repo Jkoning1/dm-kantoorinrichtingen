@@ -32,7 +32,6 @@ export const Services: CollectionConfig = {
     {
       name: 'content',
       type: 'richText',
-      required: true,
       admin: { description: 'Volledige inhoud van de dienst detail pagina' },
     },
     {
