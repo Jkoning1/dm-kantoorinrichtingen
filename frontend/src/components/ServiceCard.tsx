@@ -22,7 +22,7 @@ function ServiceIcon({ name }: { name: string }) {
 
 export default function ServiceCard({ service, className }: ServiceCardProps) {
   const imageUrl = !service.heroImage
-    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
+    ? 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=800&q=80'
     : typeof service.heroImage === 'string'
       ? service.heroImage
       : getMediaUrl(service.heroImage);

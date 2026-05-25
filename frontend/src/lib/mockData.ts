@@ -15,14 +15,14 @@ export const mockProjects: Project[] = [
     },
     gallery: [
       { image: { id: 'm1a', url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=80', alt: 'Open werkruimte', filename: 'tw-1.jpg' } },
-      { image: { id: 'm1b', url: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80', alt: 'Vergaderruimte', filename: 'tw-2.jpg' } },
+      { image: { id: 'm1b', url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80', alt: 'Vergaderruimte', filename: 'tw-2.jpg' } },
       { image: { id: 'm1c', url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80', alt: 'Lounge zone', filename: 'tw-3.jpg' } },
       { image: { id: 'm1d', url: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1200&q=80', alt: 'Directiekantoor', filename: 'tw-4.jpg' } },
     ],
     summary: 'Volledige herinrichting van 3.200 m² kantoorruimte voor een snelgroeiend technologiebedrijf, met focus op collaboratief werken en welzijn van medewerkers.',
     specs: { size: '3.200 m²', duration: '14 weken', workplaces: '240 werkplekken', year: 2024 },
     testimonial: {
-      quote: 'DM Kantoorinrichtingen heeft onze visie op de toekomst van werk perfect vertaald naar een ruimte die onze teams inspireert en motiveert. Het resultaat overtreft al onze verwachtingen.',
+      quote: 'DM Kantoorinrichtingen heeft onze visie op de toekomst van werk perfect vertaald naar een ruimte die onze teams inspireert en motiveert.',
       author: 'Jeroen van der Berg',
       role: 'CEO TechForward',
     },
@@ -71,6 +71,7 @@ export const mockProjects: Project[] = [
     },
     gallery: [
       { image: { id: 'm3a', url: 'https://images.unsplash.com/photo-1505409628601-edc9af17fda6?w=1200&q=80', alt: 'Vergaderzaal', filename: 'vermeer-1.jpg' } },
+      { image: { id: 'm3b', url: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80', alt: 'Teamoverleg', filename: 'vermeer-2.jpg' } },
     ],
     summary: 'Premium kantoorinrichting voor een gerenommeerd advocatenkantoor, waarbij traditie en moderniteit hand in hand gaan voor een optimale werkomgeving.',
     specs: { size: '950 m²', duration: '6 weken', workplaces: '55 werkplekken', year: 2023 },
@@ -97,6 +98,7 @@ export const mockProjects: Project[] = [
     },
     gallery: [
       { image: { id: 'm4a', url: 'https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=1200&q=80', alt: 'Studielandschap', filename: 'horizon-1.jpg' } },
+      { image: { id: 'm4b', url: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&q=80', alt: 'Docentenwerkplek', filename: 'horizon-2.jpg' } },
     ],
     summary: 'Flexibele en inspirerende inrichting van docenten- en administratieve werkruimtes voor een toonaangevende hogeschool in Rotterdam.',
     specs: { size: '2.100 m²', duration: '10 weken', workplaces: '180 werkplekken', year: 2023 },
@@ -109,6 +111,60 @@ export const mockProjects: Project[] = [
     createdAt: '2023-08-01T00:00:00.000Z',
     updatedAt: '2023-08-01T00:00:00.000Z',
   },
+  {
+    id: '5',
+    title: 'Provincie Noord-Holland Haarlem',
+    slug: 'provincie-noord-holland-haarlem',
+    sector: 'Overheid',
+    featured: true,
+    heroImage: {
+      id: 'm5',
+      url: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=1920&q=80',
+      alt: 'Provinciehuis kantoorinrichting',
+      filename: 'provincie-hero.jpg',
+    },
+    gallery: [
+      { image: { id: 'm5a', url: 'https://images.unsplash.com/photo-1554469384-e58fac16e23a?w=1200&q=80', alt: 'Werkzone', filename: 'provincie-1.jpg' } },
+      { image: { id: 'm5b', url: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&q=80', alt: 'Vergaderruimte', filename: 'provincie-2.jpg' } },
+    ],
+    summary: 'Duurzame en circulaire herinrichting van het provinciehuis, met hergebruik van 70% van het bestaande meubilair en BREEAM-certificering als doelstelling.',
+    specs: { size: '4.800 m²', duration: '18 weken', workplaces: '380 werkplekken', year: 2024 },
+    testimonial: {
+      quote: 'DM Kantoorinrichtingen begreep als geen ander dat duurzaamheid bij ons niet alleen een wens is, maar een verplichting.',
+      author: 'Annemarie de Wit',
+      role: 'Facilitair Manager Provincie NH',
+    },
+    resultMetric: { label: 'Lagere CO₂-uitstoot vs. nieuwbouw', value: '62%' },
+    createdAt: '2024-06-01T00:00:00.000Z',
+    updatedAt: '2024-06-01T00:00:00.000Z',
+  },
+  {
+    id: '6',
+    title: 'Ontwerpstudio Studio Tangram Amsterdam',
+    slug: 'studio-tangram-amsterdam',
+    sector: 'Creatief',
+    featured: false,
+    heroImage: {
+      id: 'm6',
+      url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80',
+      alt: 'Creatieve werkruimte Studio Tangram',
+      filename: 'tangram-hero.jpg',
+    },
+    gallery: [
+      { image: { id: 'm6a', url: 'https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=1200&q=80', alt: 'Makerspace', filename: 'tangram-1.jpg' } },
+      { image: { id: 'm6b', url: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80', alt: 'Teamtafel', filename: 'tangram-2.jpg' } },
+    ],
+    summary: 'Creatieve en inspirerende werkomgeving voor een multidisciplinair ontwerpbureau, met ruimte voor presentaties, makerspace en teamoverleg.',
+    specs: { size: '680 m²', duration: '7 weken', workplaces: '32 werkplekken', year: 2023 },
+    testimonial: {
+      quote: 'Ze dachten écht met ons mee. Het resultaat is geen kantoor dat op ons is geplakt — het is ons kantoor.',
+      author: 'Fleur Bosman',
+      role: 'Creative Director Studio Tangram',
+    },
+    resultMetric: { label: 'Medewerkerstevredenheid werkplek', value: '9.2' },
+    createdAt: '2023-05-01T00:00:00.000Z',
+    updatedAt: '2023-05-01T00:00:00.000Z',
+  },
 ];
 
 export const mockServices: Service[] = [
@@ -118,8 +174,7 @@ export const mockServices: Service[] = [
     slug: 'strategisch-advies',
     shortDescription: 'We analyseren uw werkcultuur, doelstellingen en ruimte om een integraal inrichtingsplan te maken dat uw organisatie écht vooruit helpt.',
     icon: 'Target',
-    heroImage: { id: 'sm1', url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80', alt: 'Strategisch adviesgesprek', filename: 'advies-hero.jpg' },
-    features: [
+    heroImage: { id: 'sm1', url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80', alt: 'Strategisch adviesgesprek', filename: 'advies-hero.jpg' },    features: [
       { icon: 'Users', title: 'Werkplekanalyse', description: 'Grondig onderzoek naar werkpatronen en ruimtegebruik binnen uw organisatie.' },
       { icon: 'Layout', title: 'Programma van Eisen', description: 'Vertaling van uw wensen en behoeften naar concrete specificaties.' },
       { icon: 'Target', title: 'Strategisch Masterplan', description: 'Langetermijnvisie voor uw kantooromgeving afgestemd op uw groeistrategie.' },
@@ -215,6 +270,8 @@ export const mockTeamMembers: TeamMember[] = [
   { id: 't2', name: 'Lisa van den Berg', role: 'Senior Interieurdesigner', photo: { id: 'tp2', url: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&q=80', alt: 'Lisa van den Berg', filename: 'lisa.jpg' }, order: 2 },
   { id: 't3', name: 'Mark Jansen', role: 'Ergonomie Specialist', photo: { id: 'tp3', url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80', alt: 'Mark Jansen', filename: 'mark.jpg' }, order: 3 },
   { id: 't4', name: 'Sophie de Groot', role: 'Projectmanager', photo: { id: 'tp4', url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80', alt: 'Sophie de Groot', filename: 'sophie.jpg' }, order: 4 },
+  { id: 't5', name: 'Tom Willems', role: 'Adviseur Hybride Werken', photo: { id: 'tp5', url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80', alt: 'Tom Willems', filename: 'tom.jpg' }, order: 5 },
+  { id: 't6', name: 'Noor Bakker', role: 'Duurzaamheidsadviseur', photo: { id: 'tp6', url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80', alt: 'Noor Bakker', filename: 'noor.jpg' }, order: 6 },
 ];
 
 export const mockFAQItems: FAQItem[] = [

@@ -8,7 +8,7 @@ export default function StatsBar() {
   return (
     <section className="bg-brand-surface border-y border-black/5">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.id || i}

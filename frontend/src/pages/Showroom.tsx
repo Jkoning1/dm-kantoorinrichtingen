@@ -91,7 +91,7 @@ export default function Showroom() {
                 <img
                   src={showroomImgSrc}
                   alt="DM Kantoorinrichtingen showroom"
-                  className="w-full h-[500px] object-cover"
+                  className="w-full h-64 md:h-[500px] object-cover"
                 />
                 <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl">
                   <div className="flex items-center gap-2 mb-4">

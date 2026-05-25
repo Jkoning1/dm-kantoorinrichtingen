@@ -46,7 +46,7 @@ export default function ProjectDetail() {
   }
 
   const heroUrl = !project.heroImage
-    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
+    ? 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80'
     : typeof project.heroImage === 'string'
       ? project.heroImage
       : getMediaUrl(project.heroImage);
@@ -65,7 +65,7 @@ export default function ProjectDetail() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       {/* Hero */}
       <div className="pt-20">
-        <img src={heroUrl} alt={heroAlt} className="w-full aspect-[21/9] object-cover" />
+        <img src={heroUrl} alt={heroAlt} className="w-full aspect-[3/2] sm:aspect-video md:aspect-[21/9] object-cover" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">

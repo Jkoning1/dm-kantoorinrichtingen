@@ -34,7 +34,7 @@ export default function HeroCarousel({ images, className = '' }: HeroCarouselPro
 
   if (images.length === 1) {
     return (
-      <div className={`w-full aspect-[21/9] overflow-hidden ${className}`}>
+      <div className={`w-full aspect-[3/2] sm:aspect-video md:aspect-[21/9] overflow-hidden ${className}`}>
         <img src={images[0].url} alt={images[0].alt} className="w-full h-full object-cover" />
       </div>
     );
@@ -47,7 +47,7 @@ export default function HeroCarousel({ images, className = '' }: HeroCarouselPro
   };
 
   return (
-    <div className={`relative w-full aspect-[21/9] overflow-hidden ${className}`}>
+    <div className={`relative w-full aspect-[3/2] sm:aspect-video md:aspect-[21/9] overflow-hidden ${className}`}>
       <AnimatePresence initial={false} custom={direction} mode="sync">
         <motion.img
           key={current}
@@ -66,14 +66,14 @@ export default function HeroCarousel({ images, className = '' }: HeroCarouselPro
       {/* Arrows */}
       <button
         onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all focus-visible:ring-2 focus-visible:ring-white"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all focus-visible:ring-2 focus-visible:ring-white"
         aria-label="Vorige afbeelding"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
       </button>
       <button
         onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all focus-visible:ring-2 focus-visible:ring-white"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all focus-visible:ring-2 focus-visible:ring-white"
         aria-label="Volgende afbeelding"
       >
         <ChevronRight className="w-5 h-5" />

@@ -48,7 +48,7 @@ export default function About() {
                     : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80'
                 }
                 alt="DM Kantoorinrichtingen kantoor"
-                className="w-full h-[500px] object-cover rounded-3xl"
+                className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
               />
             </motion.div>
             <motion.div
@@ -88,7 +88,7 @@ export default function About() {
             title={content.aboutTeamHeading || 'De mensen achter DM'}
             subtitle={content.aboutTeamSubtitle || 'Een gedreven team van specialisten met hart voor gezonde, duurzame werkomgevingen.'}
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {team.map((member, i) => {
               const photoUrl = !member.photo
                 ? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80'

@@ -49,7 +49,7 @@ export default function Home() {
             {content.heroLabel && (
               <p className="text-xs font-bold uppercase tracking-widest text-brand-accent mb-6">{content.heroLabel}</p>
             )}
-            <h1 className="text-5xl md:text-7xl font-bold font-display text-white leading-[1.1] max-w-3xl mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold font-display text-white leading-[1.1] max-w-3xl mb-6">
               {content.heroHeading}
             </h1>
             <p className="text-lg md:text-xl text-white/70 max-w-xl mb-10 leading-relaxed">
@@ -209,7 +209,7 @@ export default function Home() {
                     : 'https://images.unsplash.com/photo-1542601906897-a9b4c1116f99?w=800&q=80'
                 }
                 alt="Duurzame kantoorinrichting"
-                className="w-full h-[500px] object-cover rounded-3xl"
+                className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
                 loading="lazy"
               />
             </motion.div>
@@ -243,9 +243,9 @@ export default function Home() {
               </p>
               <div className="flex gap-4">
                 {[
-                  { src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80', alt: 'Team' },
-                  { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80', alt: 'Team' },
-                  { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80', alt: 'Team' },
+                  { src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80', alt: 'Dirk' },
+                  { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80', alt: 'Lisa' },
+                  { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80', alt: 'Tom' },
                 ].map((img, i) => (
                   <img
                     key={i}

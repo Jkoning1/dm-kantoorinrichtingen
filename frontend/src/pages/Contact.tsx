@@ -71,8 +71,8 @@ export default function Contact() {
                     {[
                       { src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80', alt: 'Dirk' },
                       { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80', alt: 'Lisa' },
-                      { src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80', alt: 'Mark' },
-                      { src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=80&q=80', alt: 'Sophie' },
+                      { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80', alt: 'Tom' },
+                      { src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80', alt: 'Noor' },
                     ].map((img, i) => (
                       <img
                         key={i}
