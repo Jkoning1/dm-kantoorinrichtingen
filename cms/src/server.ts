@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import payload from 'payload';
 import path from 'path';
+import { runSeed } from './seedData';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -19,6 +20,19 @@ const start = async () => {
   });
 
   app.use('/media', express.static(path.resolve(__dirname, '../media')));
+
+  app.get('/seed', async (req, res) => {
+    if (req.query.secret !== process.env.PAYLOAD_SECRET) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+    try {
+      const log = await runSeed();
+      res.json({ success: true, log });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  });
+
   app.use(express.static(path.resolve(__dirname, '../public')));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/admin')) return next();
