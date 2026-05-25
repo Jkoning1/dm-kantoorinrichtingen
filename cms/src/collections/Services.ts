@@ -51,7 +51,7 @@ export const Services: CollectionConfig = {
         {
           name: 'icon',
           type: 'select',
-          options: ['Layout', 'Pencil', 'Hammer', 'ShieldCheck', 'Lightbulb', 'Target', 'Zap', 'Heart', 'Users', 'Monitor'],
+          options: ['Layout', 'Pencil', 'Hammer', 'ShieldCheck', 'Lightbulb', 'Target', 'Zap', 'Heart', 'Users', 'Monitor', 'Leaf'],
         },
         { name: 'title', type: 'text', required: true },
         { name: 'description', type: 'textarea', required: true },
