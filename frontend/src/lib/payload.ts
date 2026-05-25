@@ -4,8 +4,8 @@ import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSett
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
 
 async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
-  if (!CMS_URL) throw new Error('No CMS URL configured');
-  const url = new URL(`${CMS_URL}/api/${endpoint}`);
+  const base = CMS_URL ? `${CMS_URL}/api` : '/api';
+  const url = new URL(base + '/' + endpoint, window.location.origin);
   if (params) {
     Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
   }
@@ -15,8 +15,8 @@ async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): P
 }
 
 async function fetchGlobal<T>(slug: string): Promise<T> {
-  if (!CMS_URL) throw new Error('No CMS URL configured');
-  const res = await fetch(`${CMS_URL}/api/globals/${slug}`);
+  const base = CMS_URL || '';
+  const res = await fetch(`${base}/api/globals/${slug}`);
   if (!res.ok) throw new Error(`Global API error: ${res.status}`);
   return res.json();
 }
