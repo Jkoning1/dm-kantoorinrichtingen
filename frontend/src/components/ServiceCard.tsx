@@ -21,9 +21,14 @@ function ServiceIcon({ name }: { name: string }) {
 }
 
 export default function ServiceCard({ service, className }: ServiceCardProps) {
-  const imageUrl = typeof service.heroImage === 'string'
-    ? service.heroImage
-    : getMediaUrl(service.heroImage);
+  const imageUrl = !service.heroImage
+    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
+    : typeof service.heroImage === 'string'
+      ? service.heroImage
+      : getMediaUrl(service.heroImage);
+  const imageAlt = !service.heroImage || typeof service.heroImage === 'string'
+    ? service.title
+    : service.heroImage.alt;
 
   return (
     <motion.div
@@ -33,7 +38,7 @@ export default function ServiceCard({ service, className }: ServiceCardProps) {
     >
       <img
         src={imageUrl}
-        alt={typeof service.heroImage === 'string' ? service.title : service.heroImage.alt}
+        alt={imageAlt}
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         loading="lazy"
       />

@@ -11,9 +11,14 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, className }: ProjectCardProps) {
-  const imageUrl = typeof project.heroImage === 'string'
-    ? project.heroImage
-    : getMediaUrl(project.heroImage);
+  const imageUrl = !project.heroImage
+    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
+    : typeof project.heroImage === 'string'
+      ? project.heroImage
+      : getMediaUrl(project.heroImage);
+  const imageAlt = !project.heroImage || typeof project.heroImage === 'string'
+    ? project.title
+    : project.heroImage.alt;
 
   return (
     <motion.div
@@ -25,7 +30,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
         <div className="aspect-[4/3] overflow-hidden">
           <img
             src={imageUrl}
-            alt={typeof project.heroImage === 'string' ? project.title : project.heroImage.alt}
+            alt={imageAlt}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             loading="lazy"
           />

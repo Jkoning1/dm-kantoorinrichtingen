@@ -49,8 +49,14 @@ export default function ServiceDetail() {
     );
   }
 
-  const heroUrl = typeof service.heroImage === 'string' ? service.heroImage : getMediaUrl(service.heroImage);
-  const heroAlt = typeof service.heroImage === 'string' ? service.title : service.heroImage.alt;
+  const heroUrl = !service.heroImage
+    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
+    : typeof service.heroImage === 'string'
+      ? service.heroImage
+      : getMediaUrl(service.heroImage);
+  const heroAlt = !service.heroImage || typeof service.heroImage === 'string'
+    ? service.title
+    : service.heroImage.alt;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
