@@ -73,8 +73,9 @@ export default function Projects() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3 }}
+                    className="h-full"
                   >
-                    <ProjectCard project={project} />
+                    <ProjectCard project={project} className="h-full" />
                   </motion.div>
                 ))}
               </AnimatePresence>

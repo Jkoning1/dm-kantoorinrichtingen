@@ -36,6 +36,7 @@ export default function ServiceCard({ service, className }: ServiceCardProps) {
       transition={{ duration: 0.3 }}
       className={cn('group relative rounded-2xl overflow-hidden min-h-[320px] flex flex-col justify-end', className)}
     >
+      <Link to={`/diensten/${service.slug}`} className="absolute inset-0 z-10" aria-label={service.title} />
       <img
         src={imageUrl}
         alt={imageAlt}
@@ -43,18 +44,15 @@ export default function ServiceCard({ service, className }: ServiceCardProps) {
         loading="lazy"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      <div className="relative z-10 p-6">
+      <div className="relative z-20 p-6">
         <div className="w-10 h-10 bg-brand-accent rounded-xl flex items-center justify-center mb-4 text-white group-hover:bg-brand-secondary transition-colors">
           <ServiceIcon name={service.icon} />
         </div>
         <h3 className="text-xl font-bold font-display text-white mb-2">{service.title}</h3>
         <p className="text-white/70 text-sm leading-relaxed mb-4 line-clamp-2">{service.shortDescription}</p>
-        <Link
-          to={`/diensten/${service.slug}`}
-          className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent group-hover:gap-3 transition-all focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
-        >
+        <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-accent group-hover:gap-3 transition-all">
           Lees meer <ArrowRight className="w-4 h-4" />
-        </Link>
+        </span>
       </div>
     </motion.div>
   );
