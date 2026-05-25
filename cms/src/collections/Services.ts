@@ -30,6 +30,16 @@ export const Services: CollectionConfig = {
       admin: { description: 'Hoofdafbeelding van de dienst (verplicht voor weergave)' },
     },
     {
+      name: 'gallery',
+      type: 'array',
+      label: 'Fotogalerij',
+      admin: { description: 'Extra afbeeldingen voor de carousel en galerij' },
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'caption', type: 'text' },
+      ],
+    },
+    {
       name: 'content',
       type: 'richText',
       admin: { description: 'Volledige inhoud van de dienst detail pagina' },
@@ -57,6 +67,16 @@ export const Services: CollectionConfig = {
       name: 'order',
       type: 'number',
       admin: { position: 'sidebar', description: 'Sorteervolgorde op overzichtspagina' },
+    },
+    {
+      name: 'seo',
+      type: 'group',
+      label: 'SEO',
+      admin: { position: 'sidebar', description: 'Laat leeg om de standaard paginatitel te gebruiken' },
+      fields: [
+        { name: 'metaTitle', type: 'text', label: 'Meta titel', admin: { description: 'Max. 60 tekens' } },
+        { name: 'metaDescription', type: 'textarea', label: 'Meta beschrijving', admin: { description: 'Max. 160 tekens' } },
+      ],
     },
   ],
 };

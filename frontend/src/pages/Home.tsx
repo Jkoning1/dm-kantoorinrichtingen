@@ -8,14 +8,17 @@ import ProjectCard from '@/components/ProjectCard';
 import ServiceCard from '@/components/ServiceCard';
 import FAQ from '@/components/FAQ';
 import ContactForm from '@/components/ContactForm';
-import { getFeaturedProjects, getServices, getHomeContent } from '@/lib/payload';
+import { getFeaturedProjects, getServices, getHomeContent, getMediaUrl } from '@/lib/payload';
 import { mockHomeContent } from '@/lib/mockData';
+import { useSEO } from '@/lib/useSEO';
 import type { Project, Service, HomeContent } from '@/lib/types';
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [content, setContent] = useState<HomeContent>(mockHomeContent);
+
+  useSEO(content.seoHomeTitle, content.seoHomeDescription);
 
   useEffect(() => {
     getFeaturedProjects().then(r => setProjects(r.docs.slice(0, 2)));
@@ -28,7 +31,11 @@ export default function Home() {
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+          src={
+            content.homeHeroImage
+              ? (typeof content.homeHeroImage === 'string' ? content.homeHeroImage : getMediaUrl(content.homeHeroImage))
+              : 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
+          }
           alt="Modern kantoor"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -196,7 +203,11 @@ export default function Home() {
               className="relative"
             >
               <img
-                src="https://images.unsplash.com/photo-1542601906897-a9b4c1116f99?w=800&q=80"
+                src={
+                  content.homeSustainabilityImage
+                    ? (typeof content.homeSustainabilityImage === 'string' ? content.homeSustainabilityImage : getMediaUrl(content.homeSustainabilityImage))
+                    : 'https://images.unsplash.com/photo-1542601906897-a9b4c1116f99?w=800&q=80'
+                }
                 alt="Duurzame kantoorinrichting"
                 className="w-full h-[500px] object-cover rounded-3xl"
                 loading="lazy"

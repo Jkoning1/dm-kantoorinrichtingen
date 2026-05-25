@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import SectionHeading from '@/components/SectionHeading';
 import CTASection from '@/components/CTASection';
-import { getTeamMembers, getHomeContent } from '@/lib/payload';
+import { getTeamMembers, getHomeContent, getMediaUrl } from '@/lib/payload';
 import type { TeamMember, HomeContent } from '@/lib/types';
-import { getMediaUrl } from '@/lib/payload';
 import { mockHomeContent } from '@/lib/mockData';
+import { useSEO } from '@/lib/useSEO';
 
 export default function About() {
   const [team, setTeam] = useState<TeamMember[]>([]);
   const [content, setContent] = useState<HomeContent>(mockHomeContent);
+
+  useSEO(content.seoAboutTitle, content.seoAboutDescription);
 
   useEffect(() => {
     getTeamMembers().then(r => setTeam(r.docs));
@@ -23,8 +25,8 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
             label="Ons verhaal"
-            title="Over DM Kantoorinrichtingen"
-            subtitle="Meer dan 25 jaar lang helpen wij organisaties een werkomgeving te creëren waar mensen écht in tot hun recht komen."
+            title={content.aboutPageHeading || 'Over DM Kantoorinrichtingen'}
+            subtitle={content.aboutPageSubtitle || 'Meer dan 25 jaar lang helpen wij organisaties een werkomgeving te creëren waar mensen écht in tot hun recht komen.'}
           />
         </div>
       </div>
@@ -40,7 +42,11 @@ export default function About() {
               transition={{ duration: 0.6 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80"
+                src={
+                  content.aboutVisieImage
+                    ? (typeof content.aboutVisieImage === 'string' ? content.aboutVisieImage : getMediaUrl(content.aboutVisieImage))
+                    : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80'
+                }
                 alt="DM Kantoorinrichtingen kantoor"
                 className="w-full h-[500px] object-cover rounded-3xl"
               />
@@ -79,8 +85,8 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
             label="Ons team"
-            title="De mensen achter DM"
-            subtitle="Een gedreven team van specialisten met hart voor gezonde, duurzame werkomgevingen."
+            title={content.aboutTeamHeading || 'De mensen achter DM'}
+            subtitle={content.aboutTeamSubtitle || 'Een gedreven team van specialisten met hart voor gezonde, duurzame werkomgevingen.'}
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((member, i) => {

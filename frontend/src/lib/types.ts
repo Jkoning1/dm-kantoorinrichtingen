@@ -36,21 +36,10 @@ export interface Project {
   challenge?: SlateNode[];
   solution?: SlateNode[];
   result?: SlateNode[];
-  specs?: {
-    size?: string;
-    duration?: string;
-    workplaces?: string;
-    year?: number;
-  };
-  testimonial?: {
-    quote?: string;
-    author?: string;
-    role?: string;
-  };
-  resultMetric?: {
-    label?: string;
-    value?: string;
-  };
+  specs?: { size?: string; duration?: string; workplaces?: string; year?: number };
+  testimonial?: { quote?: string; author?: string; role?: string };
+  resultMetric?: { label?: string; value?: string };
+  seo?: { metaTitle?: string; metaDescription?: string };
   createdAt: string;
   updatedAt: string;
 }
@@ -68,10 +57,12 @@ export interface Service {
   shortDescription: string;
   icon: string;
   heroImage?: Media | string;
+  gallery?: Array<{ image: Media | string; caption?: string }>;
   content?: SlateNode[];
   features?: ServiceFeature[];
   benefits?: Array<{ text: string }>;
   order?: number;
+  seo?: { metaTitle?: string; metaDescription?: string };
 }
 
 export interface TeamMember {
@@ -103,6 +94,16 @@ export interface SiteSettings {
   stats: Array<{ id?: string; value: string; label: string }>;
   showroomUSPs: Array<{ id?: string; icon: string; title: string; description: string }>;
   mapsUrl?: string;
+  showroomPageHeading?: string;
+  showroomPageSubtitle?: string;
+  showroomSectionHeading?: string;
+  showroomCtaHeading?: string;
+  showroomCtaText?: string;
+  showroomImage?: Media | string;
+  seoShowroomTitle?: string;
+  seoShowroomDescription?: string;
+  seoContactTitle?: string;
+  seoContactDescription?: string;
 }
 
 export interface HomeContent {
@@ -111,6 +112,9 @@ export interface HomeContent {
   heroLabel?: string;
   heroPrimaryButtonLabel?: string;
   heroSecondaryButtonLabel?: string;
+  homeHeroImage?: Media | string;
+  homeSustainabilityImage?: Media | string;
+  aboutVisieImage?: Media | string;
   aanpakSteps: Array<{ id?: string; number: string; title: string; description: string }>;
   duurzaamheidLabel?: string;
   duurzaamheidHeading: string;
@@ -118,10 +122,18 @@ export interface HomeContent {
   duurzaamheidChecklist: Array<{ id?: string; text: string }>;
   contactCtaHeading?: string;
   contactCtaText?: string;
+  aboutPageHeading?: string;
+  aboutPageSubtitle?: string;
   aboutVisieHeading?: string;
   companyDescription1?: string;
   companyDescription2?: string;
   waarden: Array<{ id?: string; title: string; description: string }>;
+  aboutTeamHeading?: string;
+  aboutTeamSubtitle?: string;
+  seoHomeTitle?: string;
+  seoHomeDescription?: string;
+  seoAboutTitle?: string;
+  seoAboutDescription?: string;
 }
 
 export interface PayloadResponse<T> {

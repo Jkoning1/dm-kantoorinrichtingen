@@ -3,9 +3,12 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ContactForm from '@/components/ContactForm';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
+import { useSEO } from '@/lib/useSEO';
 
 export default function Contact() {
   const settings = useSiteSettings();
+
+  useSEO(settings.seoContactTitle, settings.seoContactDescription);
 
   const openingHoursText = settings.openingHours
     .map(h => `${h.day}: ${h.hours}`)

@@ -253,6 +253,15 @@ export const mockSiteSettings: SiteSettings = {
     { id: '4', icon: 'Leaf', title: 'Duurzame collectie', description: 'Uitsluitend circulaire en verantwoord geproduceerde meubelcollecties.' },
   ],
   mapsUrl: 'https://maps.google.com/?q=Haagse+uitweg+1A,+4021+GB+Buurmalsen',
+  showroomPageHeading: 'Onze showroom in Buurmalsen',
+  showroomPageSubtitle: 'Kom langs en laat u inspireren. Meer dan 2.000 m² aan kantoorinrichting op één locatie, midden in het Rivierenland.',
+  showroomSectionHeading: 'Waarom onze showroom bezoeken?',
+  showroomCtaHeading: 'Plan uw bezoek aan de showroom',
+  showroomCtaText: 'Maak een afspraak voor een persoonlijke rondleiding met één van onze adviseurs. Wij nemen ruim de tijd voor u.',
+  seoShowroomTitle: 'Showroom Buurmalsen | DM Kantoorinrichtingen',
+  seoShowroomDescription: 'Bezoek onze showroom in Buurmalsen — meer dan 2.000 m² kantoorinrichting. Laat u inspireren en ontvang persoonlijk advies van onze ergonomen.',
+  seoContactTitle: 'Contact | DM Kantoorinrichtingen',
+  seoContactDescription: 'Neem contact op met DM Kantoorinrichtingen. Bezoek onze showroom in Buurmalsen of stuur ons een bericht voor een vrijblijvend adviesgesprek.',
 };
 
 export const mockHomeContent: HomeContent = {
@@ -289,4 +298,12 @@ export const mockHomeContent: HomeContent = {
     { id: '3', title: 'Eerlijk advies', description: 'Wij adviseren wat écht past bij uw organisatie, niet wat het meest lucratief is.' },
     { id: '4', title: 'Lange termijn', description: 'We bouwen relaties voor de lange termijn, niet voor een eenmalig project.' },
   ],
+  aboutPageHeading: 'Over DM Kantoorinrichtingen',
+  aboutPageSubtitle: 'Al meer dan 25 jaar de vertrouwde partner voor professionele kantoorinrichtingen in Nederland.',
+  aboutTeamHeading: 'De mensen achter DM',
+  aboutTeamSubtitle: 'Een gedreven team van adviseurs, designers en projectmanagers met passie voor inspirerende werkomgevingen.',
+  seoHomeTitle: 'DM Kantoorinrichtingen — Professionele Kantoorinrichting',
+  seoHomeDescription: 'Meer dan 25 jaar ervaring in professionele kantoorinrichting. Van strategisch advies tot complete inrichting. Gevestigd in Buurmalsen, actief door heel Nederland.',
+  seoAboutTitle: 'Over Ons | DM Kantoorinrichtingen',
+  seoAboutDescription: 'Leer meer over DM Kantoorinrichtingen — meer dan 25 jaar ervaring, een gepassioneerd team en een duurzame visie op kantoorinrichting.',
 };

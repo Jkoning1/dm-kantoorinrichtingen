@@ -3,6 +3,8 @@ import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '@/components/SectionHeading';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
+import { getMediaUrl } from '@/lib/payload';
+import { useSEO } from '@/lib/useSEO';
 import * as LucideIcons from 'lucide-react';
 import type { LucideProps } from 'lucide-react';
 
@@ -16,14 +18,20 @@ function DynamicIcon({ name, className }: { name: string; className?: string }) 
 export default function Showroom() {
   const settings = useSiteSettings();
 
+  useSEO(settings.seoShowroomTitle, settings.seoShowroomDescription);
+
+  const showroomImgSrc = settings.showroomImage
+    ? (typeof settings.showroomImage === 'string' ? settings.showroomImage : getMediaUrl(settings.showroomImage))
+    : 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80';
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       <div className="pt-32 pb-16 bg-gradient-to-b from-brand-surface to-white">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeading
             label="Bezoek ons"
-            title="Onze showroom in Buurmalsen"
-            subtitle="Kom langs en laat u inspireren. Meer dan 2.000 m² aan kantoorinrichting op één locatie, midden in het Rivierenland."
+            title={settings.showroomPageHeading || 'Onze showroom in Buurmalsen'}
+            subtitle={settings.showroomPageSubtitle || 'Kom langs en laat u inspireren. Meer dan 2.000 m² aan kantoorinrichting op één locatie, midden in het Rivierenland.'}
           />
         </div>
       </div>
@@ -38,7 +46,7 @@ export default function Showroom() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold font-display mb-8">Waarom onze showroom bezoeken?</h2>
+              <h2 className="text-3xl font-bold font-display mb-8">{settings.showroomSectionHeading || 'Waarom onze showroom bezoeken?'}</h2>
               <div className="space-y-5 mb-10">
                 {settings.showroomUSPs.map(({ icon, title, description }, i) => (
                   <div key={i} className="flex gap-4 p-5 bg-brand-surface rounded-2xl border border-black/5 hover:shadow-lg hover:shadow-black/5 transition-all">
@@ -81,7 +89,7 @@ export default function Showroom() {
             >
               <div className="relative rounded-3xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80"
+                  src={showroomImgSrc}
                   alt="DM Kantoorinrichtingen showroom"
                   className="w-full h-[500px] object-cover"
                 />
@@ -108,9 +116,9 @@ export default function Showroom() {
       {/* Bezoek plannen CTA */}
       <section className="py-16 md:py-24 bg-brand-surface">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-display mb-6">Plan uw bezoek aan de showroom</h2>
+          <h2 className="text-3xl md:text-4xl font-bold font-display mb-6">{settings.showroomCtaHeading || 'Plan uw bezoek aan de showroom'}</h2>
           <p className="text-black/60 text-lg max-w-xl mx-auto mb-8">
-            Maak een afspraak voor een persoonlijk rondleiding met één van onze adviseurs.
+            {settings.showroomCtaText || 'Maak een afspraak voor een persoonlijk rondleiding met één van onze adviseurs.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

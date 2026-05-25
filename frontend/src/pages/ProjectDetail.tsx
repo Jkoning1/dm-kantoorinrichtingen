@@ -7,11 +7,14 @@ import type { Project } from '@/lib/types';
 import ImageGallery from '@/components/ImageGallery';
 import CTASection from '@/components/CTASection';
 import RichText from '@/components/RichText';
+import { useSEO } from '@/lib/useSEO';
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+
+  useSEO(project?.seo?.metaTitle, project?.seo?.metaDescription);
 
   useEffect(() => {
     if (!slug) return;

@@ -6,6 +6,9 @@ import { getServiceBySlug, getMediaUrl } from '@/lib/payload';
 import type { Service } from '@/lib/types';
 import * as LucideIcons from 'lucide-react';
 import CTASection from '@/components/CTASection';
+import HeroCarousel from '@/components/HeroCarousel';
+import ImageGallery from '@/components/ImageGallery';
+import { useSEO } from '@/lib/useSEO';
 
 import type { LucideProps } from 'lucide-react';
 
@@ -16,10 +19,23 @@ function DynamicIcon({ name }: { name: string }) {
   return <Icon className="w-6 h-6" />;
 }
 
+function getImageUrl(image: Service['heroImage']): string {
+  if (!image) return 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80';
+  if (typeof image === 'string') return image;
+  return getMediaUrl(image);
+}
+
+function getImageAlt(image: Service['heroImage'], fallback: string): string {
+  if (!image || typeof image === 'string') return fallback;
+  return image.alt;
+}
+
 export default function ServiceDetail() {
   const { slug } = useParams<{ slug: string }>();
   const [service, setService] = useState<Service | null>(null);
   const [loading, setLoading] = useState(true);
+
+  useSEO(service?.seo?.metaTitle, service?.seo?.metaDescription);
 
   useEffect(() => {
     if (!slug) return;
@@ -49,19 +65,22 @@ export default function ServiceDetail() {
     );
   }
 
-  const heroUrl = !service.heroImage
-    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
-    : typeof service.heroImage === 'string'
-      ? service.heroImage
-      : getMediaUrl(service.heroImage);
-  const heroAlt = !service.heroImage || typeof service.heroImage === 'string'
-    ? service.title
-    : service.heroImage.alt;
+  // Build carousel images: heroImage first, then gallery
+  const carouselImages = [
+    { url: getImageUrl(service.heroImage), alt: getImageAlt(service.heroImage, service.title) },
+    ...(service.gallery || []).map(item => ({
+      url: getImageUrl(item.image as Service['heroImage']),
+      alt: getImageAlt(item.image as Service['heroImage'], service.title),
+    })),
+  ];
+
+  const galleryItems = service.gallery || [];
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
+      {/* Hero carousel — full width, no padding */}
       <div className="pt-20">
-        <img src={heroUrl} alt={heroAlt} className="w-full aspect-[21/9] object-cover" />
+        <HeroCarousel images={carouselImages} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
@@ -137,6 +156,14 @@ export default function ServiceDetail() {
             </div>
           </div>
         </div>
+
+        {/* Gallery */}
+        {galleryItems.length > 0 && (
+          <div className="mt-16">
+            <h2 className="text-2xl font-bold font-display mb-6">Fotogalerij</h2>
+            <ImageGallery items={galleryItems} />
+          </div>
+        )}
       </div>
 
       <CTASection />

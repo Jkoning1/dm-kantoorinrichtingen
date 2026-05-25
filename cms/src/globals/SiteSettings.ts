@@ -11,48 +11,12 @@ export const SiteSettings: GlobalConfig = {
         {
           label: 'Contact',
           fields: [
-            {
-              name: 'address',
-              type: 'text',
-              label: 'Straat + huisnummer',
-              required: true,
-              defaultValue: 'Haagse uitweg 1A',
-            },
-            {
-              name: 'addressCity',
-              type: 'text',
-              label: 'Postcode + stad',
-              required: true,
-              defaultValue: '4021 GB Buurmalsen',
-            },
-            {
-              name: 'phone',
-              type: 'text',
-              label: 'Telefoonnummer (weergave)',
-              required: true,
-              defaultValue: '+31 (0)345 61 23 45',
-              admin: { description: 'Bijv. +31 (0)345 61 23 45' },
-            },
-            {
-              name: 'phoneHref',
-              type: 'text',
-              label: 'Telefoonnummer (voor bel-link)',
-              required: true,
-              defaultValue: 'tel:+31345612345',
-              admin: { description: 'Bijv. tel:+31345612345 (geen spaties)' },
-            },
-            {
-              name: 'email',
-              type: 'email',
-              required: true,
-              defaultValue: 'info@dmkantoorinrichtingen.nl',
-            },
-            {
-              name: 'mapsUrl',
-              type: 'text',
-              label: 'Google Maps URL',
-              defaultValue: 'https://maps.google.com/?q=Haagse+uitweg+1A,+4021+GB+Buurmalsen',
-            },
+            { name: 'address', type: 'text', label: 'Straat + huisnummer', required: true, defaultValue: 'Haagse uitweg 1A' },
+            { name: 'addressCity', type: 'text', label: 'Postcode + stad', required: true, defaultValue: '4021 GB Buurmalsen' },
+            { name: 'phone', type: 'text', label: 'Telefoonnummer (weergave)', required: true, defaultValue: '+31 (0)345 61 23 45', admin: { description: 'Bijv. +31 (0)345 61 23 45' } },
+            { name: 'phoneHref', type: 'text', label: 'Telefoonnummer (voor bel-link)', required: true, defaultValue: 'tel:+31345612345', admin: { description: 'Bijv. tel:+31345612345 (geen spaties)' } },
+            { name: 'email', type: 'email', required: true, defaultValue: 'info@dmkantoorinrichtingen.nl' },
+            { name: 'mapsUrl', type: 'text', label: 'Google Maps URL', defaultValue: 'https://maps.google.com/?q=Haagse+uitweg+1A,+4021+GB+Buurmalsen' },
             {
               name: 'openingHours',
               type: 'array',
@@ -67,27 +31,27 @@ export const SiteSettings: GlobalConfig = {
                 { day: 'Zondag', hours: 'Gesloten' },
               ],
             },
+            {
+              name: 'seoContactTitle',
+              type: 'text',
+              label: 'Contact pagina — Meta titel',
+              defaultValue: 'Contact | DM Kantoorinrichtingen',
+              admin: { description: 'SEO titel voor de contactpagina' },
+            },
+            {
+              name: 'seoContactDescription',
+              type: 'textarea',
+              label: 'Contact pagina — Meta beschrijving',
+              defaultValue: 'Neem contact op met DM Kantoorinrichtingen. Bezoek onze showroom in Buurmalsen of stuur ons een bericht voor een vrijblijvend adviesgesprek.',
+            },
           ],
         },
         {
           label: 'Social media',
           fields: [
-            {
-              name: 'socialLinkedin',
-              type: 'text',
-              label: 'LinkedIn URL',
-              admin: { description: 'Volledige URL bijv. https://linkedin.com/company/...' },
-            },
-            {
-              name: 'socialInstagram',
-              type: 'text',
-              label: 'Instagram URL',
-            },
-            {
-              name: 'socialFacebook',
-              type: 'text',
-              label: 'Facebook URL',
-            },
+            { name: 'socialLinkedin', type: 'text', label: 'LinkedIn URL', admin: { description: 'Volledige URL bijv. https://linkedin.com/company/...' } },
+            { name: 'socialInstagram', type: 'text', label: 'Instagram URL' },
+            { name: 'socialFacebook', type: 'text', label: 'Facebook URL' },
           ],
         },
         {
@@ -121,12 +85,7 @@ export const SiteSettings: GlobalConfig = {
                 {
                   name: 'icon',
                   type: 'select',
-                  options: [
-                    'Sofa', 'Eye', 'Award', 'Leaf', 'Star', 'Heart',
-                    'ShieldCheck', 'Zap', 'Building', 'Users', 'Target',
-                    'Lightbulb', 'Hammer', 'Monitor', 'MapPin', 'Package',
-                    'CheckCircle', 'Clock',
-                  ],
+                  options: ['Sofa', 'Eye', 'Award', 'Leaf', 'Star', 'Heart', 'ShieldCheck', 'Zap', 'Building', 'Users', 'Target', 'Lightbulb', 'Hammer', 'Monitor', 'MapPin', 'Package', 'CheckCircle', 'Clock'],
                   required: true,
                   admin: { description: 'Lucide icon naam' },
                 },
@@ -143,15 +102,38 @@ export const SiteSettings: GlobalConfig = {
           ],
         },
         {
+          label: 'Showroom pagina',
+          fields: [
+            { name: 'showroomPageHeading', type: 'text', label: 'Pagina titel', defaultValue: 'Onze showroom in Buurmalsen' },
+            { name: 'showroomPageSubtitle', type: 'textarea', label: 'Pagina subtitel', defaultValue: 'Kom langs en laat u inspireren. Meer dan 2.000 m² aan kantoorinrichting op één locatie, midden in het Rivierenland.' },
+            { name: 'showroomSectionHeading', type: 'text', label: 'Sectie heading', defaultValue: 'Waarom onze showroom bezoeken?' },
+            { name: 'showroomCtaHeading', type: 'text', label: 'CTA heading', defaultValue: 'Plan uw bezoek aan de showroom' },
+            { name: 'showroomCtaText', type: 'textarea', label: 'CTA tekst', defaultValue: 'Maak een afspraak voor een persoonlijk rondleiding met één van onze adviseurs.' },
+            {
+              name: 'showroomImage',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Showroom afbeelding',
+              admin: { description: 'Grote foto van de showroom (rechts naast de USPs)' },
+            },
+            {
+              name: 'seoShowroomTitle',
+              type: 'text',
+              label: 'Showroom — Meta titel',
+              defaultValue: 'Showroom Buurmalsen | DM Kantoorinrichtingen',
+            },
+            {
+              name: 'seoShowroomDescription',
+              type: 'textarea',
+              label: 'Showroom — Meta beschrijving',
+              defaultValue: 'Bezoek onze showroom in Buurmalsen — meer dan 2.000 m² kantoorinrichting. Laat u inspireren en ontvang persoonlijk advies van onze ergonomen.',
+            },
+          ],
+        },
+        {
           label: 'Footer',
           fields: [
-            {
-              name: 'footerDescription',
-              type: 'textarea',
-              label: 'Beschrijving in footer',
-              required: true,
-              defaultValue: 'Strategisch adviseur voor gezonde, duurzame en toekomstbestendige kantoorinrichtingen. Al meer dan 25 jaar de partner voor inspirerende werkomgevingen.',
-            },
+            { name: 'footerDescription', type: 'textarea', label: 'Beschrijving in footer', required: true, defaultValue: 'Strategisch adviseur voor gezonde, duurzame en toekomstbestendige kantoorinrichtingen. Al meer dan 25 jaar de partner voor inspirerende werkomgevingen.' },
           ],
         },
       ],

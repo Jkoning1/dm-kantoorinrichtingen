@@ -90,5 +90,15 @@ export const Projects: CollectionConfig = {
         { name: 'value', type: 'text', admin: { description: 'Bijv. "40%"' } },
       ],
     },
+    {
+      name: 'seo',
+      type: 'group',
+      label: 'SEO',
+      admin: { position: 'sidebar', description: 'Laat leeg om de standaard paginatitel te gebruiken' },
+      fields: [
+        { name: 'metaTitle', type: 'text', label: 'Meta titel', admin: { description: 'Max. 60 tekens' } },
+        { name: 'metaDescription', type: 'textarea', label: 'Meta beschrijving', admin: { description: 'Max. 160 tekens' } },
+      ],
+    },
   ],
 };
