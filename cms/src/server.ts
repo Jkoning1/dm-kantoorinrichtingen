@@ -6,7 +6,7 @@ import payload from 'payload';
 import path from 'path';
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 const start = async () => {
   await payload.init({
