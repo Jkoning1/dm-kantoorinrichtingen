@@ -397,8 +397,7 @@ async function seedCollection(slug: string, items: object[], uniqueField: string
     try {
       const existing = await payload.find({ collection: slug, where: { [uniqueField]: { equals: val } } });
       if (existing.docs.length > 0) {
-        await payload.update({ collection: slug, id: existing.docs[0].id, data: item as any });
-        log.push(`UPDATE: ${slug}/${val}`);
+        log.push(`SKIP: ${slug}/${val}`);
       } else {
         await payload.create({ collection: slug, data: item as any });
         log.push(`OK: ${slug}/${val}`);
@@ -410,23 +409,26 @@ async function seedCollection(slug: string, items: object[], uniqueField: string
   return log;
 }
 
+async function seedGlobalIfEmpty(slug: string, checkField: string, data: object): Promise<string> {
+  try {
+    const current = await payload.findGlobal({ slug }) as Record<string, unknown>;
+    if (current[checkField]) {
+      return `SKIP: global/${slug}`;
+    }
+    await payload.updateGlobal({ slug, data: data as any });
+    return `OK: global/${slug}`;
+  } catch (err: any) {
+    return `ERR: global/${slug} — ${err.message}`;
+  }
+}
+
 export async function runSeed(): Promise<string[]> {
   const log: string[] = [];
   log.push(...await seedCollection('projects', seedProjects, 'slug'));
   log.push(...await seedCollection('services', seedServices, 'slug'));
   log.push(...await seedCollection('team-members', seedTeamMembers, 'name'));
   log.push(...await seedCollection('faq', seedFAQ, 'question'));
-  try {
-    await payload.updateGlobal({ slug: 'home-content', data: seedHomeContent as any });
-    log.push('OK: global/home-content');
-  } catch (err: any) {
-    log.push(`ERR: global/home-content — ${err.message}`);
-  }
-  try {
-    await payload.updateGlobal({ slug: 'site-settings', data: seedSiteSettings as any });
-    log.push('OK: global/site-settings');
-  } catch (err: any) {
-    log.push(`ERR: global/site-settings — ${err.message}`);
-  }
+  log.push(await seedGlobalIfEmpty('home-content', 'heroHeading', seedHomeContent));
+  log.push(await seedGlobalIfEmpty('site-settings', 'address', seedSiteSettings));
   return log;
 }
