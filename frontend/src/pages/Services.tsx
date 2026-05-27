@@ -46,6 +46,7 @@ export default function Services() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="h-full"
                 >
                   <ServiceCard service={service} className="h-full" />
                 </motion.div>
