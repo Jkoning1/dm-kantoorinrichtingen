@@ -65,7 +65,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-5">Navigatie</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-brand-accent mb-5">Navigatie</h4>
             <ul className="space-y-3">
               {navLinks.map(link => (
                 <li key={link.name}>
@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-5">Contact</h4>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-brand-accent mb-5">Contact</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3 text-sm text-black/70">
                 <MapPin className="w-4 h-4 text-brand-accent shrink-0 mt-0.5" />

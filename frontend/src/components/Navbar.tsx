@@ -31,7 +31,7 @@ export default function Navbar() {
               key={item.name}
               to={item.href}
               className={({ isActive }) =>
-                cn('text-sm font-medium transition-colors hover:text-brand-secondary', isActive ? 'text-brand-accent' : 'text-brand-primary')
+                cn('text-sm font-medium transition-colors hover:text-brand-secondary relative pb-0.5', isActive ? 'text-brand-accent after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-brand-accent after:rounded-full' : 'text-brand-primary')
               }
             >
               {item.name}

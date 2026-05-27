@@ -126,7 +126,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <div className="text-4xl font-bold font-display text-brand-accent/30 mb-4">{step.number}</div>
+                <div className="text-4xl font-bold font-display text-brand-accent/60 mb-4">{step.number}</div>
                 <h3 className="text-lg font-bold font-display mb-2">{step.title}</h3>
                 <p className="text-sm text-black/60 leading-relaxed">{step.description}</p>
               </motion.div>

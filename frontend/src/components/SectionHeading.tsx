@@ -13,7 +13,7 @@ export default function SectionHeading({ label, title, subtitle, align = 'center
   return (
     <div className={cn('mb-12', align === 'center' && 'text-center', className)}>
       {label && (
-        <p className={cn('text-xs font-bold uppercase tracking-widest mb-3', light ? 'text-white/50' : 'text-black/40')}>
+        <p className={cn('text-xs font-bold uppercase tracking-widest mb-3', light ? 'text-white/60' : 'text-brand-accent')}>
           {label}
         </p>
       )}

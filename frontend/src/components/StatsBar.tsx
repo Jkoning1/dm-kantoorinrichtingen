@@ -18,8 +18,8 @@ export default function StatsBar() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="text-4xl font-bold font-display text-brand-primary">{stat.value}</div>
-              <div className="text-sm text-black/60 uppercase tracking-widest mt-1">{stat.label}</div>
+              <div className="text-4xl font-bold font-display text-brand-accent">{stat.value}</div>
+              <div className="text-sm text-black/50 uppercase tracking-widest mt-1">{stat.label}</div>
             </motion.div>
           ))}
         </div>
