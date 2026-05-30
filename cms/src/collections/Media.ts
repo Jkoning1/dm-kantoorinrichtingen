@@ -5,9 +5,9 @@ const MAX_PX = 1920;
 const QUALITY = 82;
 
 async function compressImage(buffer: Buffer, mimetype: string): Promise<Buffer> {
-  // Use Payload's bundled sharp (already works on Railway) instead of a separate import
+  // webpackIgnore: sharp is Node-only — prevents Payload admin UI build from bundling it
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const sharp = require('sharp');
+  const sharp = require(/* webpackIgnore: true */ 'sharp');
   const base = sharp(buffer).resize({
     width: MAX_PX,
     height: MAX_PX,
