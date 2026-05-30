@@ -1,11 +1,13 @@
 import path from 'path';
-import sharp from 'sharp';
 import { CollectionConfig } from 'payload/types';
 
 const MAX_PX = 1920;
-const JPEG_QUALITY = 82;
+const QUALITY = 82;
 
 async function compressImage(buffer: Buffer, mimetype: string): Promise<Buffer> {
+  // Use Payload's bundled sharp (already works on Railway) instead of a separate import
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const sharp = require('sharp');
   const base = sharp(buffer).resize({
     width: MAX_PX,
     height: MAX_PX,
@@ -13,8 +15,8 @@ async function compressImage(buffer: Buffer, mimetype: string): Promise<Buffer> 
     withoutEnlargement: true,
   });
   if (mimetype === 'image/png') return base.png({ compressionLevel: 8, quality: 80 }).toBuffer();
-  if (mimetype === 'image/webp') return base.webp({ quality: JPEG_QUALITY }).toBuffer();
-  return base.jpeg({ quality: JPEG_QUALITY, mozjpeg: true }).toBuffer();
+  if (mimetype === 'image/webp') return base.webp({ quality: QUALITY }).toBuffer();
+  return base.jpeg({ quality: QUALITY, mozjpeg: true }).toBuffer();
 }
 
 export const Media: CollectionConfig = {
