@@ -452,6 +452,20 @@ export const runSeed = async (): Promise<string[]> => {
     }
   }
 
+  // Migrate existing projects that still have sector stored as a plain string name
+  try {
+    const allProjects = await payload.find({ collection: 'projects', limit: 200, depth: 0 });
+    for (const project of allProjects.docs as Array<Record<string, any>>) {
+      const sectorVal = project.sector as string;
+      if (sectorVal && sectorMap[sectorVal]) {
+        await payload.update({ collection: 'projects', id: project.id, data: { sector: sectorMap[sectorVal] } });
+        log.push(`MIGRATE: projects/${project.slug} sector → ${sectorVal}`);
+      }
+    }
+  } catch (err: any) {
+    log.push(`ERR: migrate projects sector — ${err.message}`);
+  }
+
   // Resolve sector names to IDs for projects
   const projectsWithIds = seedProjects.map(p => ({
     ...p,
