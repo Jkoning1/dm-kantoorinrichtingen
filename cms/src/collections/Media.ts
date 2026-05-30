@@ -1,48 +1,9 @@
 import path from 'path';
 import { CollectionConfig } from 'payload/types';
 
-const MAX_PX = 1920;
-const QUALITY = 82;
-
-async function compressImage(buffer: Buffer, mimetype: string): Promise<Buffer> {
-  // webpackIgnore: sharp is Node-only — prevents Payload admin UI build from bundling it
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const sharp = require(/* webpackIgnore: true */ 'sharp');
-  const base = sharp(buffer).resize({
-    width: MAX_PX,
-    height: MAX_PX,
-    fit: 'inside',
-    withoutEnlargement: true,
-  });
-  if (mimetype === 'image/png') return base.png({ compressionLevel: 8, quality: 80 }).toBuffer();
-  if (mimetype === 'image/webp') return base.webp({ quality: QUALITY }).toBuffer();
-  return base.jpeg({ quality: QUALITY, mozjpeg: true }).toBuffer();
-}
-
 export const Media: CollectionConfig = {
   slug: 'media',
   access: { read: () => true },
-  hooks: {
-    beforeOperation: [
-      async ({ operation, args }) => {
-        if ((operation === 'create' || operation === 'update') && args.req?.files?.file) {
-          const file = args.req.files.file as any;
-          const mime: string = file.mimetype || '';
-          const skip = !mime.startsWith('image/') || mime === 'image/svg+xml' || mime === 'image/gif';
-          if (!skip && Buffer.isBuffer(file.data)) {
-            try {
-              const compressed = await compressImage(file.data, mime);
-              file.data = compressed;
-              file.size = compressed.length;
-            } catch {
-              // leave original unchanged on error
-            }
-          }
-        }
-        return args;
-      },
-    ],
-  },
   upload: {
     staticURL: '/media',
     staticDir: path.resolve(process.cwd(), 'media'),
