@@ -1,4 +1,4 @@
-import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent } from './types';
+import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector } from './types';
 import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent } from './mockData';
 
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
@@ -21,14 +21,27 @@ async function fetchGlobal<T>(slug: string): Promise<T> {
   return res.json();
 }
 
-export async function getProjects(sector?: string): Promise<PayloadResponse<Project>> {
+export async function getSectors(): Promise<Sector[]> {
+  try {
+    const res = await fetchAPI<PayloadResponse<Sector>>('sectors', { limit: '100', sort: 'name' });
+    return res.docs;
+  } catch {
+    const names = [...new Set(mockProjects.map(p => typeof p.sector === 'string' ? p.sector : (p.sector as Sector).name))].sort();
+    return names.map(name => ({ id: name, name }));
+  }
+}
+
+export async function getProjects(sectorId?: string): Promise<PayloadResponse<Project>> {
   try {
     const params: Record<string, string> = { limit: '100', sort: '-createdAt', depth: '1' };
-    if (sector && sector !== 'Alle') params['where[sector][equals]'] = sector;
+    if (sectorId) params['where[sector][equals]'] = sectorId;
     return await fetchAPI<PayloadResponse<Project>>('projects', params);
   } catch {
-    const docs = sector && sector !== 'Alle'
-      ? mockProjects.filter(p => p.sector === sector)
+    const docs = sectorId
+      ? mockProjects.filter(p => {
+          const name = typeof p.sector === 'string' ? p.sector : (p.sector as Sector).name;
+          return name === sectorId;
+        })
       : mockProjects;
     return { docs, totalDocs: docs.length, totalPages: 1, page: 1 };
   }

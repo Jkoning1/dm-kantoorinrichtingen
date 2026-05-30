@@ -2,6 +2,7 @@ import { buildConfig } from 'payload/config';
 import path from 'path';
 import { Projects } from './collections/Projects';
 import { Services } from './collections/Services';
+import { Sectors } from './collections/Sectors';
 import { Media } from './collections/Media';
 import { TeamMembers } from './collections/TeamMembers';
 import { Pages } from './collections/Pages';
@@ -20,6 +21,7 @@ export default buildConfig({
   },
 
   collections: [
+    Sectors,
     Projects,
     Services,
     Media,

@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import type { Project } from '@/lib/types';
+import type { Project, Sector } from '@/lib/types';
 import { getMediaUrl } from '@/lib/payload';
 import { cn } from '@/lib/utils';
 
@@ -19,6 +19,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
   const imageAlt = !project.heroImage || typeof project.heroImage === 'string'
     ? project.title
     : project.heroImage.alt;
+  const sectorName = typeof project.sector === 'string' ? project.sector : (project.sector as Sector)?.name ?? '';
 
   return (
     <motion.div
@@ -38,7 +39,7 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-3">
             <span className="text-xs font-bold uppercase tracking-widest text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
-              {project.sector}
+              {sectorName}
             </span>
             {project.specs?.size && (
               <span className="text-xs text-black/40 font-medium">{project.specs.size}</span>

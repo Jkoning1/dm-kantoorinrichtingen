@@ -18,9 +18,10 @@ export const Projects: CollectionConfig = {
     },
     {
       name: 'sector',
-      type: 'select',
-      options: ['Technologie', 'Zakelijke Dienstverlening', 'Zorg', 'Onderwijs', 'Overheid', 'Creatief'],
+      type: 'relationship',
+      relationTo: 'sectors',
       required: true,
+      admin: { position: 'sidebar' },
     },
     {
       name: 'featured',

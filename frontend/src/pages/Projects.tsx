@@ -2,24 +2,27 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import SectionHeading from '@/components/SectionHeading';
 import ProjectCard from '@/components/ProjectCard';
-import { getProjects } from '@/lib/payload';
-import type { Project } from '@/lib/types';
+import { getProjects, getSectors } from '@/lib/payload';
+import type { Project, Sector } from '@/lib/types';
 import { cn } from '@/lib/utils';
-
-const sectors = ['Alle', 'Technologie', 'Zakelijke Dienstverlening', 'Zorg', 'Onderwijs', 'Overheid', 'Creatief'];
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [sector, setSector] = useState('Alle');
+  const [sectors, setSectors] = useState<Sector[]>([]);
+  const [selectedSector, setSelectedSector] = useState<Sector | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    getSectors().then(setSectors);
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
-    getProjects(sector).then(r => {
+    getProjects(selectedSector?.id).then(r => {
       setProjects(r.docs);
       setLoading(false);
     });
-  }, [sector]);
+  }, [selectedSector]);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
@@ -32,18 +35,29 @@ export default function Projects() {
             align="left"
           />
           <div className="flex flex-wrap gap-2 mt-8">
+            <button
+              onClick={() => setSelectedSector(null)}
+              className={cn(
+                'px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2',
+                !selectedSector
+                  ? 'bg-brand-accent text-white'
+                  : 'bg-white border border-black/10 text-black/70 hover:border-brand-accent hover:text-brand-accent'
+              )}
+            >
+              Alle
+            </button>
             {sectors.map(s => (
               <button
-                key={s}
-                onClick={() => setSector(s)}
+                key={s.id}
+                onClick={() => setSelectedSector(s)}
                 className={cn(
                   'px-5 py-2 rounded-full text-sm font-medium transition-all focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2',
-                  sector === s
+                  selectedSector?.id === s.id
                     ? 'bg-brand-accent text-white'
                     : 'bg-white border border-black/10 text-black/70 hover:border-brand-accent hover:text-brand-accent'
                 )}
               >
-                {s}
+                {s.name}
               </button>
             ))}
           </div>

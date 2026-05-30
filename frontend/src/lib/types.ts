@@ -24,11 +24,16 @@ export type SlateNode = {
   value?: unknown;
 };
 
+export interface Sector {
+  id: string;
+  name: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   slug: string;
-  sector: 'Technologie' | 'Zakelijke Dienstverlening' | 'Zorg' | 'Onderwijs' | 'Overheid' | 'Creatief';
+  sector: string | Sector;
   featured: boolean;
   heroImage?: Media | string;
   gallery?: Array<{ image: Media | string; caption?: string }>;

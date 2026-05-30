@@ -422,13 +422,47 @@ async function seedGlobalIfEmpty(slug: string, checkField: string, data: object)
   }
 }
 
-export async function runSeed(): Promise<string[]> {
+export const seedSectorNames = [
+  'Technologie',
+  'Zakelijke Dienstverlening',
+  'Zorg',
+  'Onderwijs',
+  'Overheid',
+  'Creatief',
+];
+
+export const runSeed = async (): Promise<string[]> => {
   const log: string[] = [];
-  log.push(...await seedCollection('projects', seedProjects, 'slug'));
+
+  // Seed sectors first and build name→id map
+  const sectorMap: Record<string, string> = {};
+  for (const name of seedSectorNames) {
+    try {
+      const existing = await payload.find({ collection: 'sectors', where: { name: { equals: name } } });
+      if (existing.docs.length > 0) {
+        sectorMap[name] = existing.docs[0].id;
+        log.push(`SKIP: sectors/${name}`);
+      } else {
+        const created = await payload.create({ collection: 'sectors', data: { name } });
+        sectorMap[name] = created.id;
+        log.push(`OK: sectors/${name}`);
+      }
+    } catch (err: any) {
+      log.push(`ERR: sectors/${name} — ${err.message}`);
+    }
+  }
+
+  // Resolve sector names to IDs for projects
+  const projectsWithIds = seedProjects.map(p => ({
+    ...p,
+    sector: sectorMap[p.sector as string] ?? p.sector,
+  }));
+
+  log.push(...await seedCollection('projects', projectsWithIds, 'slug'));
   log.push(...await seedCollection('services', seedServices, 'slug'));
   log.push(...await seedCollection('team-members', seedTeamMembers, 'name'));
   log.push(...await seedCollection('faq', seedFAQ, 'question'));
   log.push(await seedGlobalIfEmpty('home-content', 'heroHeading', seedHomeContent));
   log.push(await seedGlobalIfEmpty('site-settings', 'address', seedSiteSettings));
   return log;
-}
+};

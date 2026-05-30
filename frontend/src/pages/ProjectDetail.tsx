@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, MapPin, Clock, Users, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
 import { getProjectBySlug, getMediaUrl } from '@/lib/payload';
+import type { Sector } from '@/lib/types';
 import type { Project } from '@/lib/types';
 import ImageGallery from '@/components/ImageGallery';
 import CTASection from '@/components/CTASection';
@@ -84,7 +85,7 @@ export default function ProjectDetail() {
 
         <div className="mb-8">
           <span className="text-xs font-bold uppercase tracking-widest text-brand-accent bg-brand-accent/10 px-3 py-1 rounded-full">
-            {project.sector}
+            {typeof project.sector === 'string' ? project.sector : (project.sector as Sector)?.name}
           </span>
           <h1 className="text-4xl md:text-5xl font-bold font-display mt-4 mb-4">{project.title}</h1>
           <p className="text-lg text-black/60 leading-relaxed max-w-3xl">{project.summary}</p>
