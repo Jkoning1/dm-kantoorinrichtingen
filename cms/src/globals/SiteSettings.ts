@@ -136,6 +136,60 @@ export const SiteSettings: GlobalConfig = {
             { name: 'footerDescription', type: 'textarea', label: 'Beschrijving in footer', required: true, defaultValue: 'Strategisch adviseur voor gezonde, duurzame en toekomstbestendige kantoorinrichtingen. Al meer dan 25 jaar de partner voor inspirerende werkomgevingen.' },
           ],
         },
+        {
+          label: 'Logo & Huisstijl',
+          fields: [
+            {
+              name: 'logoDesktop',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Logo (desktop navigatie)',
+              admin: { description: 'Logo voor de navigatiebalk op desktop. Aanbevolen: SVG of transparante PNG, max. 200px breed × 60px hoog.' },
+            },
+            {
+              name: 'logoMobile',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Logo (mobiele navigatie)',
+              admin: { description: 'Logo voor de navigatiebalk op mobiel — laat leeg om het desktop-logo ook mobiel te gebruiken. Tip: gebruik een vierkant icoon-logo voor betere leesbaarheid op klein scherm.' },
+            },
+            {
+              name: 'favicon',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Favicon',
+              admin: { description: 'Browser-tabblad icoon (.ico, .png of .svg). Aanbevolen formaat: 32×32px of 64×64px.' },
+            },
+          ],
+        },
+        {
+          label: 'Klanten',
+          fields: [
+            {
+              name: 'clientLogos',
+              type: 'array',
+              label: "Klantlogo's (zichtbaar op homepage)",
+              admin: { description: "Logo's worden in grijswaarden getoond en kleuren op hover. Sleep om de volgorde aan te passen." },
+              fields: [
+                { name: 'name', type: 'text', required: true, label: 'Bedrijfsnaam' },
+                {
+                  name: 'logo',
+                  type: 'upload',
+                  relationTo: 'media',
+                  required: true,
+                  label: 'Logo afbeelding',
+                  admin: { description: 'Transparante PNG of SVG aanbevolen — wit of gekleurd logo op transparante achtergrond' },
+                },
+                {
+                  name: 'url',
+                  type: 'text',
+                  label: 'Website URL (optioneel)',
+                  admin: { description: 'Bijv. https://example.com — maakt het logo klikbaar' },
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
   ],

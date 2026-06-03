@@ -3,26 +3,52 @@ import { NavLink, Link } from 'react-router-dom';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '@/lib/utils';
+import { useSiteSettings } from '@/lib/SiteSettingsContext';
+import { getMediaUrl } from '@/lib/payload';
 
 const navItems = [
   { name: 'Projecten', href: '/projecten' },
   { name: 'Diensten', href: '/diensten' },
   { name: 'Over ons', href: '/over-ons' },
   { name: 'Showroom', href: '/showroom' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const settings = useSiteSettings();
+
+  const desktopLogoUrl = settings.logoDesktop
+    ? (typeof settings.logoDesktop === 'string' ? settings.logoDesktop : getMediaUrl(settings.logoDesktop))
+    : null;
+  const mobileLogoUrl = settings.logoMobile
+    ? (typeof settings.logoMobile === 'string' ? settings.logoMobile : getMediaUrl(settings.logoMobile))
+    : desktopLogoUrl;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
       <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <div className="w-10 h-10 bg-brand-primary flex items-center justify-center rounded-lg">
-            <span className="text-white font-display font-bold text-lg">DM</span>
-          </div>
-          <span className="font-display font-semibold text-brand-primary hidden sm:block">Kantoorinrichtingen</span>
+          {/* Mobile logo */}
+          {mobileLogoUrl ? (
+            <img src={mobileLogoUrl} alt="DM Kantoorinrichtingen" className="h-10 w-auto sm:hidden" />
+          ) : (
+            <div className="w-10 h-10 bg-brand-primary flex sm:hidden items-center justify-center rounded-lg">
+              <span className="text-white font-display font-bold text-lg">DM</span>
+            </div>
+          )}
+          {/* Desktop logo */}
+          {desktopLogoUrl ? (
+            <img src={desktopLogoUrl} alt="DM Kantoorinrichtingen" className="h-10 w-auto hidden sm:block" />
+          ) : (
+            <div className="hidden sm:flex items-center gap-3">
+              <div className="w-10 h-10 bg-brand-primary flex items-center justify-center rounded-lg">
+                <span className="text-white font-display font-bold text-lg">DM</span>
+              </div>
+              <span className="font-display font-semibold text-brand-primary">Kantoorinrichtingen</span>
+            </div>
+          )}
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

@@ -1,5 +1,5 @@
-import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector } from './types';
-import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent } from './mockData';
+import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog } from './types';
+import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent, mockBlogs } from './mockData';
 
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
 
@@ -115,6 +115,26 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     return { ...mockSiteSettings, ...data };
   } catch {
     return mockSiteSettings;
+  }
+}
+
+export async function getBlogs(): Promise<PayloadResponse<Blog>> {
+  try {
+    return await fetchAPI<PayloadResponse<Blog>>('blogs', { sort: '-publishedAt', depth: '1', limit: '100' });
+  } catch {
+    return { docs: mockBlogs, totalDocs: mockBlogs.length, totalPages: 1, page: 1 };
+  }
+}
+
+export async function getBlogBySlug(slug: string): Promise<Blog | null> {
+  try {
+    const res = await fetchAPI<PayloadResponse<Blog>>('blogs', {
+      'where[slug][equals]': slug,
+      depth: '2',
+    });
+    return res.docs[0] || null;
+  } catch {
+    return mockBlogs.find(b => b.slug === slug) || null;
   }
 }
 

@@ -7,6 +7,7 @@ import { Media } from './collections/Media';
 import { TeamMembers } from './collections/TeamMembers';
 import { Pages } from './collections/Pages';
 import { FAQ } from './collections/FAQ';
+import { Blogs } from './collections/Blogs';
 import { SiteSettings } from './globals/SiteSettings';
 import { HomeContent } from './globals/HomeContent';
 
@@ -24,6 +25,7 @@ export default buildConfig({
     Sectors,
     Projects,
     Services,
+    Blogs,
     Media,
     TeamMembers,
     Pages,

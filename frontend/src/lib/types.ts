@@ -109,6 +109,26 @@ export interface SiteSettings {
   seoShowroomDescription?: string;
   seoContactTitle?: string;
   seoContactDescription?: string;
+  logoDesktop?: Media | string;
+  logoMobile?: Media | string;
+  favicon?: Media | string;
+  clientLogos?: Array<{ id?: string; name: string; logo: Media | string; url?: string }>;
+}
+
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  heroImage?: Media | string;
+  content?: SlateNode[];
+  author?: string;
+  publishedAt?: string;
+  featured?: boolean;
+  category?: string;
+  seo?: { metaTitle?: string; metaDescription?: string; ogImage?: Media | string };
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface HomeContent {

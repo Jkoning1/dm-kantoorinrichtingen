@@ -1,4 +1,4 @@
-import type { Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent } from './types';
+import type { Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Blog } from './types';
 
 export const mockProjects: Project[] = [
   {
@@ -319,7 +319,86 @@ export const mockSiteSettings: SiteSettings = {
   seoShowroomDescription: 'Bezoek onze showroom in Buurmalsen — meer dan 2.000 m² kantoorinrichting. Laat u inspireren en ontvang persoonlijk advies van onze ergonomen.',
   seoContactTitle: 'Contact | DM Kantoorinrichtingen',
   seoContactDescription: 'Neem contact op met DM Kantoorinrichtingen. Bezoek onze showroom in Buurmalsen of stuur ons een bericht voor een vrijblijvend adviesgesprek.',
+  clientLogos: [
+    { id: 'cl1', name: 'TechForward', logo: { id: 'logo1', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=TechForward', alt: 'TechForward', filename: 'tf-logo.png' } },
+    { id: 'cl2', name: 'De Linde Zorg', logo: { id: 'logo2', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=De+Linde', alt: 'De Linde', filename: 'linde-logo.png' } },
+    { id: 'cl3', name: 'Vermeer & Partners', logo: { id: 'logo3', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Vermeer', alt: 'Vermeer & Partners', filename: 'vermeer-logo.png' } },
+    { id: 'cl4', name: 'Hogeschool Horizon', logo: { id: 'logo4', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Horizon', alt: 'Hogeschool Horizon', filename: 'horizon-logo.png' } },
+    { id: 'cl5', name: 'Provincie Noord-Holland', logo: { id: 'logo5', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Provincie+NH', alt: 'Provincie Noord-Holland', filename: 'pnh-logo.png' } },
+    { id: 'cl6', name: 'Studio Tangram', logo: { id: 'logo6', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Tangram', alt: 'Studio Tangram', filename: 'tangram-logo.png' } },
+  ],
 };
+
+export const mockBlogs: Blog[] = [
+  {
+    id: 'b1',
+    title: '5 trends in kantoorinrichting voor 2025',
+    slug: 'kantoorinrichting-trends-2025',
+    excerpt: 'De kantooromgeving evolueert razendsnel. Ontdek welke vijf trends bepalend zijn voor moderne werkplekken in 2025 en hoe u hierop kunt inspelen.',
+    heroImage: { id: 'bm1', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80', alt: 'Modern kantoor 2025', filename: 'blog-trends.jpg' },
+    author: 'Dirk Martens',
+    publishedAt: '2025-01-15T00:00:00.000Z',
+    featured: true,
+    category: 'Trends',
+    seo: {
+      metaTitle: '5 Trends Kantoorinrichting 2025 | DM Kantoorinrichtingen Blog',
+      metaDescription: 'Ontdek de vijf belangrijkste trends in kantoorinrichting voor 2025: van biofiel design tot neurodivergente werkplekken.',
+    },
+    createdAt: '2025-01-15T00:00:00.000Z',
+    updatedAt: '2025-01-15T00:00:00.000Z',
+  },
+  {
+    id: 'b2',
+    title: 'Ergonomie op het werk: zo voorkom je klachten',
+    slug: 'ergonomie-klachten-voorkomen',
+    excerpt: 'Rugklachten, nekpijn, RSI — een groot deel van het ziekteverzuim is werkplekgerelateerd. Zo pakt u het goed aan met de juiste werkplekinrichting.',
+    heroImage: { id: 'bm2', url: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=1200&q=80', alt: 'Ergonomische werkplek', filename: 'blog-ergonomie.jpg' },
+    author: 'Lisa van den Berg',
+    publishedAt: '2025-02-20T00:00:00.000Z',
+    featured: false,
+    category: 'Ergonomie',
+    seo: {
+      metaTitle: 'Ergonomie op het Werk | DM Kantoorinrichtingen Blog',
+      metaDescription: 'Leer hoe u rugklachten, nekpijn en RSI voorkomt met de juiste ergonomische werkplek. Tips van onze gecertificeerde ergonomen.',
+    },
+    createdAt: '2025-02-20T00:00:00.000Z',
+    updatedAt: '2025-02-20T00:00:00.000Z',
+  },
+  {
+    id: 'b3',
+    title: 'Circulaire kantoorinrichting: zo werkt het in de praktijk',
+    slug: 'circulaire-kantoorinrichting-praktijk',
+    excerpt: 'Bestaand meubilair hergebruiken is niet alleen duurzaam — het bespaart ook aanzienlijk op kosten. Een kijkje achter de schermen van ons circulair proces.',
+    heroImage: { id: 'bm3', url: 'https://images.unsplash.com/photo-1542601906897-a9b4c1116f99?w=1200&q=80', alt: 'Circulaire kantoorinrichting', filename: 'blog-circulair.jpg' },
+    author: 'Noor Bakker',
+    publishedAt: '2025-03-10T00:00:00.000Z',
+    featured: true,
+    category: 'Duurzaamheid',
+    seo: {
+      metaTitle: 'Circulaire Kantoorinrichting in de Praktijk | DM Blog',
+      metaDescription: 'Hoe werkt circulaire kantoorinrichting? DM Kantoorinrichtingen laat zien hoe hergebruik bijdraagt aan duurzame werkplekken en kostenbesparingen.',
+    },
+    createdAt: '2025-03-10T00:00:00.000Z',
+    updatedAt: '2025-03-10T00:00:00.000Z',
+  },
+  {
+    id: 'b4',
+    title: 'Hybride werken: hoe richt je je kantoor optimaal in?',
+    slug: 'hybride-werken-kantoor-inrichten',
+    excerpt: 'De hybride werkomgeving vraagt om een nieuwe aanpak van uw kantoorinrichting. Ontdek de slimste oplossingen voor activity-based working en flex-plekken.',
+    heroImage: { id: 'bm4', url: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=1200&q=80', alt: 'Hybride werkplek', filename: 'blog-hybride.jpg' },
+    author: 'Tom Willems',
+    publishedAt: '2025-04-05T00:00:00.000Z',
+    featured: false,
+    category: 'Hybride Werken',
+    seo: {
+      metaTitle: 'Kantoor Inrichten voor Hybride Werken | DM Blog',
+      metaDescription: 'Hoe richt u uw kantoor optimaal in voor hybride werken? Praktische tips voor activity-based working, video conferencing en flexplekken.',
+    },
+    createdAt: '2025-04-05T00:00:00.000Z',
+    updatedAt: '2025-04-05T00:00:00.000Z',
+  },
+];
 
 export const mockHomeContent: HomeContent = {
   heroHeading: 'Kantoorinrichtingen die uw team laten floreren',

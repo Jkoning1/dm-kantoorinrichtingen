@@ -4,19 +4,21 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import SectionHeading from '@/components/SectionHeading';
 import StatsBar from '@/components/StatsBar';
+import ClientLogosBar from '@/components/ClientLogosBar';
 import ProjectCard from '@/components/ProjectCard';
 import ServiceCard from '@/components/ServiceCard';
 import FAQ from '@/components/FAQ';
 import ContactForm from '@/components/ContactForm';
-import { getFeaturedProjects, getServices, getHomeContent, getMediaUrl } from '@/lib/payload';
+import { getFeaturedProjects, getServices, getHomeContent, getTeamMembers, getMediaUrl } from '@/lib/payload';
 import { mockHomeContent } from '@/lib/mockData';
 import { useSEO } from '@/lib/useSEO';
-import type { Project, Service, HomeContent } from '@/lib/types';
+import type { Project, Service, HomeContent, TeamMember } from '@/lib/types';
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [services, setServices] = useState<Service[]>([]);
   const [content, setContent] = useState<HomeContent>(mockHomeContent);
+  const [team, setTeam] = useState<TeamMember[]>([]);
 
   useSEO(content.seoHomeTitle, content.seoHomeDescription);
 
@@ -24,6 +26,7 @@ export default function Home() {
     getFeaturedProjects().then(r => setProjects(r.docs.slice(0, 2)));
     getServices().then(r => setServices(r.docs.slice(0, 6)));
     getHomeContent().then(setContent).catch(() => {});
+    getTeamMembers().then(r => setTeam(r.docs.slice(0, 3)));
   }, []);
 
   return (
@@ -75,6 +78,9 @@ export default function Home() {
 
       {/* Stats */}
       <StatsBar />
+
+      {/* Client logos */}
+      <ClientLogosBar />
 
       {/* Uitgelichte Projecten */}
       <section className="py-16 md:py-24">
@@ -241,25 +247,30 @@ export default function Home() {
               <p className="text-black/60 text-lg leading-relaxed mb-8">
                 {content.contactCtaText || 'Vertel ons over uw ruimte en wensen. We plannen graag een vrijblijvend gesprek en denken direct mee over de mogelijkheden.'}
               </p>
-              <div className="flex gap-4">
-                {[
-                  { src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80', alt: 'Dirk' },
-                  { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80', alt: 'Lisa' },
-                  { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80', alt: 'Tom' },
-                ].map((img, i) => (
-                  <img
-                    key={i}
-                    src={img.src}
-                    alt={img.alt}
-                    className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md"
-                    style={{ marginLeft: i > 0 ? '-8px' : 0 }}
-                    loading="lazy"
-                  />
-                ))}
-                <div className="flex items-center pl-2">
+              {team.length > 0 && (
+                <div className="flex items-center gap-3">
+                  <div className="flex">
+                    {team.map((member, i) => {
+                      const photoUrl = !member.photo
+                        ? `https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80`
+                        : typeof member.photo === 'string'
+                          ? member.photo
+                          : getMediaUrl(member.photo);
+                      return (
+                        <img
+                          key={member.id}
+                          src={photoUrl}
+                          alt={member.name}
+                          className="w-14 h-14 rounded-full object-cover object-top border-2 border-white shadow-md"
+                          style={{ marginLeft: i > 0 ? '-10px' : 0 }}
+                          loading="lazy"
+                        />
+                      );
+                    })}
+                  </div>
                   <p className="text-sm text-black/60">Ons team staat voor u klaar</p>
                 </div>
-              </div>
+              )}
             </div>
             <ContactForm />
           </div>

@@ -12,6 +12,9 @@ import ServiceDetail from '@/pages/ServiceDetail';
 import About from '@/pages/About';
 import Showroom from '@/pages/Showroom';
 import Contact from '@/pages/Contact';
+import BlogList from '@/pages/BlogList';
+import BlogDetail from '@/pages/BlogDetail';
+import NotFound from '@/pages/NotFound';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -26,7 +29,9 @@ function AnimatedRoutes() {
         <Route path="/over-ons" element={<About />} />
         <Route path="/showroom" element={<Showroom />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/blog/:slug" element={<BlogDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
   );

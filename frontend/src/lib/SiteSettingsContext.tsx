@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import type { SiteSettings } from './types';
-import { getSiteSettings } from './payload';
+import { getSiteSettings, getMediaUrl } from './payload';
 import { mockSiteSettings } from './mockData';
 
 const SiteSettingsContext = createContext<SiteSettings>(mockSiteSettings);
@@ -11,6 +11,20 @@ export function SiteSettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     getSiteSettings().then(setSettings).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!settings.favicon) return;
+    const faviconUrl = typeof settings.favicon === 'string'
+      ? settings.favicon
+      : getMediaUrl(settings.favicon);
+    let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = faviconUrl;
+  }, [settings.favicon]);
 
   return (
     <SiteSettingsContext.Provider value={settings}>

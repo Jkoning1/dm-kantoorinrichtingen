@@ -14,6 +14,7 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ items }: ImageGalleryProps) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const close = () => setLightboxIndex(null);
   const prev = useCallback(() => setLightboxIndex(i => i !== null ? (i - 1 + items.length) % items.length : null), [items.length]);
@@ -39,9 +40,40 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
     return item.image.alt;
   }
 
+  function handleLightboxTouchStart(e: React.TouchEvent) {
+    setTouchStartX(e.touches[0].clientX);
+  }
+  function handleLightboxTouchEnd(e: React.TouchEvent) {
+    if (touchStartX === null) return;
+    const delta = touchStartX - e.changedTouches[0].clientX;
+    if (delta > 50) next();
+    else if (delta < -50) prev();
+    setTouchStartX(null);
+  }
+
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      {/* Mobile: horizontal scroll carousel */}
+      <div className="md:hidden -mx-6 px-6 overflow-x-auto snap-x snap-mandatory flex gap-3 pb-2 scrollbar-none">
+        {items.map((item, i) => (
+          <button
+            key={i}
+            onClick={() => setLightboxIndex(i)}
+            className="snap-start shrink-0 w-[80vw] aspect-[4/3] rounded-xl overflow-hidden relative focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2"
+          >
+            <img
+              src={getUrl(item)}
+              alt={getAlt(item)}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-black/0 active:bg-black/10 transition-colors" />
+          </button>
+        ))}
+      </div>
+
+      {/* Desktop: grid */}
+      <div className="hidden md:grid grid-cols-3 gap-3">
         {items.map((item, i) => (
           <button
             key={i}
@@ -63,6 +95,7 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
         ))}
       </div>
 
+      {/* Lightbox */}
       <AnimatePresence>
         {lightboxIndex !== null && (
           <motion.div
@@ -71,6 +104,8 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
             onClick={close}
+            onTouchStart={handleLightboxTouchStart}
+            onTouchEnd={handleLightboxTouchEnd}
           >
             <button
               onClick={close}
@@ -106,6 +141,16 @@ export default function ImageGallery({ items }: ImageGalleryProps) {
                 {items[lightboxIndex].caption}
               </p>
             )}
+            {/* Dot indicators */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+              {items.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={e => { e.stopPropagation(); setLightboxIndex(i); }}
+                  className={`w-2 h-2 rounded-full transition-all ${i === lightboxIndex ? 'bg-white scale-125' : 'bg-white/30 hover:bg-white/60'}`}
+                />
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,12 +1,20 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ContactForm from '@/components/ContactForm';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
+import { getTeamMembers, getMediaUrl } from '@/lib/payload';
+import type { TeamMember } from '@/lib/types';
 import { useSEO } from '@/lib/useSEO';
 
 export default function Contact() {
   const settings = useSiteSettings();
+  const [team, setTeam] = useState<TeamMember[]>([]);
+
+  useEffect(() => {
+    getTeamMembers().then(r => setTeam(r.docs.slice(0, 4)));
+  }, []);
 
   useSEO(settings.seoContactTitle, settings.seoContactDescription);
 
@@ -67,23 +75,27 @@ export default function Contact() {
               <div className="p-6 bg-brand-surface rounded-2xl border border-black/5">
                 <p className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Ons team staat voor u klaar</p>
                 <div className="flex items-center gap-4">
-                  <div className="flex">
-                    {[
-                      { src: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80', alt: 'Dirk' },
-                      { src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&q=80', alt: 'Lisa' },
-                      { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80', alt: 'Tom' },
-                      { src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80', alt: 'Noor' },
-                    ].map((img, i) => (
-                      <img
-                        key={i}
-                        src={img.src}
-                        alt={img.alt}
-                        className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                        style={{ marginLeft: i > 0 ? '-8px' : 0 }}
-                        loading="lazy"
-                      />
-                    ))}
-                  </div>
+                  {team.length > 0 && (
+                    <div className="flex">
+                      {team.map((member, i) => {
+                        const photoUrl = !member.photo
+                          ? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80'
+                          : typeof member.photo === 'string'
+                            ? member.photo
+                            : getMediaUrl(member.photo);
+                        return (
+                          <img
+                            key={member.id}
+                            src={photoUrl}
+                            alt={member.name}
+                            className="w-12 h-12 rounded-full object-cover object-top border-2 border-white shadow-sm"
+                            style={{ marginLeft: i > 0 ? '-8px' : 0 }}
+                            loading="lazy"
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
                   <div>
                     <p className="text-sm font-medium">Wij reageren binnen 1 werkdag</p>
                     <p className="text-xs text-black/50">Gemiddelde responstijd: 2 uur</p>
