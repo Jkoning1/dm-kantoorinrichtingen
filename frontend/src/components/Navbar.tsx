@@ -11,7 +11,6 @@ const navItems = [
   { name: 'Diensten', href: '/diensten' },
   { name: 'Over ons', href: '/over-ons' },
   { name: 'Showroom', href: '/showroom' },
-  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
