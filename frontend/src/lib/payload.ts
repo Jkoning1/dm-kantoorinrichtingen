@@ -1,7 +1,22 @@
-import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog } from './types';
+import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog, Page } from './types';
 import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent, mockBlogs } from './mockData';
 
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
+
+function normalizeSlug(value: string): string {
+  const trimmed = value.trim();
+  let decoded = trimmed;
+  try {
+    decoded = decodeURIComponent(trimmed);
+  } catch {
+    decoded = trimmed;
+  }
+
+  return decoded
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
   const base = CMS_URL ? `${CMS_URL}/api` : '/api';
@@ -49,13 +64,41 @@ export async function getProjects(sectorId?: string): Promise<PayloadResponse<Pr
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
+    const requestedSlug = slug.trim();
+
     const res = await fetchAPI<PayloadResponse<Project>>('projects', {
+      limit: '1',
       'where[slug][equals]': slug,
       depth: '2',
     });
-    return res.docs[0] || null;
+
+    if (res.docs[0]) {
+      return res.docs[0];
+    }
+
+    // Fallback for legacy or manually entered slugs with case/encoding differences.
+    const allProjects = await fetchAPI<PayloadResponse<Project>>('projects', {
+      limit: '200',
+      depth: '2',
+    });
+
+    const requestedNormalized = normalizeSlug(requestedSlug);
+    return (
+      allProjects.docs.find(project => {
+        const projectSlug = project.slug || '';
+        return projectSlug === requestedSlug || normalizeSlug(projectSlug) === requestedNormalized;
+      }) || null
+    );
   } catch {
-    return mockProjects.find(p => p.slug === slug) || null;
+    const requestedSlug = slug.trim();
+    const requestedNormalized = normalizeSlug(requestedSlug);
+
+    return (
+      mockProjects.find(project => {
+        const projectSlug = project.slug || '';
+        return projectSlug === requestedSlug || normalizeSlug(projectSlug) === requestedNormalized;
+      }) || null
+    );
   }
 }
 
@@ -136,6 +179,14 @@ export async function getBlogBySlug(slug: string): Promise<Blog | null> {
   } catch {
     return mockBlogs.find(b => b.slug === slug) || null;
   }
+}
+
+export async function getPageBySlug(slug: string): Promise<Page | null> {
+  const res = await fetchAPI<PayloadResponse<Page>>('pages', {
+    'where[slug][equals]': slug,
+    depth: '2',
+  });
+  return res.docs[0] || null;
 }
 
 export async function getHomeContent(): Promise<HomeContent> {
