@@ -3,6 +3,6 @@
   buildCommand = "bash build.sh"
 
 [deploy]
-  startCommand = "node cms/dist/server.js"
+  startCommand = "cd cms && PAYLOAD_CONFIG_PATH=dist/payload.config.js node dist/server.js"
   restartPolicyType = "ON_FAILURE"
   restartPolicyMaxRetries = 3
