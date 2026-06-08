@@ -6,7 +6,7 @@ export const Media: CollectionConfig = {
   access: { read: () => true },
   upload: {
     staticURL: '/media',
-    staticDir: path.resolve(process.cwd(), 'media'),
+    staticDir: process.env.MEDIA_DIR || path.resolve(process.cwd(), 'media'),
     adminThumbnail: 'thumbnail',
     imageSizes: [
       { name: 'thumbnail', width: 400, height: 300, position: 'centre' },

@@ -32,7 +32,8 @@ const start = async () => {
     },
   });
 
-  app.use('/media', express.static(path.resolve(process.cwd(), 'media')));
+  const mediaDir = process.env.MEDIA_DIR || path.resolve(process.cwd(), 'media');
+  app.use('/media', express.static(mediaDir));
   app.use(express.static(path.resolve(__dirname, '../public')));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/admin')) return next();
