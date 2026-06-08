@@ -19,6 +19,12 @@ export const mockProjects: Project[] = [
       { image: { id: 'm1c', url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80', alt: 'Lounge zone', filename: 'tw-3.jpg' } },
       { image: { id: 'm1d', url: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=1200&q=80', alt: 'Directiekantoor', filename: 'tw-4.jpg' } },
     ],
+    productGallery: [
+      { id: 'pg1', name: 'Ahrend 2020 Bureaustoel', brand: 'Ahrend', description: 'Ergonomische bureaustoel met lendensteun', image: { id: 'pgi1', url: 'https://images.unsplash.com/photo-1589540406440-ab235c0f0fae?w=400&q=80', alt: 'Ahrend 2020 bureaustoel', filename: 'ahrend2020.jpg' } },
+      { id: 'pg2', name: 'Vitra Eames DSW', brand: 'Vitra', description: 'Eetkamerstoel voor vergaderruimtes', image: { id: 'pgi2', url: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80', alt: 'Vitra Eames DSW stoel', filename: 'vitra-dsw.jpg' } },
+      { id: 'pg3', name: 'Kinnarps T-serie Bureau', brand: 'Kinnarps', description: 'Zit-sta bureau met elektrische verstelling', image: { id: 'pgi3', url: 'https://images.unsplash.com/photo-1593079831268-3381b0db4a77?w=400&q=80', alt: 'Kinnarps bureau', filename: 'kinnarps-bureau.jpg' } },
+      { id: 'pg4', name: 'HAY About A Chair', brand: 'HAY', description: 'Lichtgewicht stapelstoel', image: { id: 'pgi4', url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80', alt: 'HAY stoel', filename: 'hay-aac.jpg' } },
+    ],
     summary: 'Volledige herinrichting van 3.200 m² kantoorruimte voor een snelgroeiend technologiebedrijf, met focus op collaboratief werken en welzijn van medewerkers.',
     specs: { size: '3.200 m²', duration: '14 weken', workplaces: '240 werkplekken', year: 2024 },
     testimonial: {

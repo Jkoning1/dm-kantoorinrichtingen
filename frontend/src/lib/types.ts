@@ -37,6 +37,7 @@ export interface Project {
   featured: boolean;
   heroImage?: Media | string;
   gallery?: Array<{ image: Media | string; caption?: string }>;
+  productGallery?: Array<{ id?: string; image: Media | string; name: string; brand?: string; description?: string }>;
   summary: string;
   challenge?: SlateNode[];
   solution?: SlateNode[];

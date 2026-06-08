@@ -96,6 +96,27 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
+      name: 'productGallery',
+      type: 'array',
+      label: 'Productgalerij',
+      admin: {
+        description: 'Producten gebruikt in dit project — worden getoond op lichtgrijze achtergrond. Gebruik renders vanuit hetzelfde perspectief voor een consistente uitstraling.',
+      },
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          label: 'Productafbeelding',
+          admin: { description: 'Vrijstaand product op transparante of witte achtergrond aanbevolen' },
+        },
+        { name: 'name', type: 'text', required: true, label: 'Productnaam' },
+        { name: 'brand', type: 'text', label: 'Merk / fabrikant' },
+        { name: 'description', type: 'text', label: 'Korte omschrijving (optioneel)' },
+      ],
+    },
+    {
       name: 'seo',
       type: 'group',
       label: 'SEO',
