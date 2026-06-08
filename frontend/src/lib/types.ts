@@ -161,6 +161,20 @@ export interface HomeContent {
   seoAboutDescription?: string;
 }
 
+export interface NavItem {
+  id?: string;
+  label: string;
+  href: string;
+  openInNewTab?: boolean;
+}
+
+export interface Navigation {
+  navItems: NavItem[];
+  footerNavItems: NavItem[];
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
 export interface PageBlock {
   blockType: 'hero' | 'stats' | 'textImage';
   id?: string;

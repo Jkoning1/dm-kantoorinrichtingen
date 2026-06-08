@@ -1,4 +1,4 @@
-import type { Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Blog } from './types';
+import type { Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Blog, Navigation } from './types';
 
 export const mockProjects: Project[] = [
   {
@@ -327,6 +327,26 @@ export const mockSiteSettings: SiteSettings = {
     { id: 'cl5', name: 'Provincie Noord-Holland', logo: { id: 'logo5', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Provincie+NH', alt: 'Provincie Noord-Holland', filename: 'pnh-logo.png' } },
     { id: 'cl6', name: 'Studio Tangram', logo: { id: 'logo6', url: 'https://placehold.co/180x64/f3f4f6/6b7280?text=Tangram', alt: 'Studio Tangram', filename: 'tangram-logo.png' } },
   ],
+};
+
+export const mockNavigation: Navigation = {
+  navItems: [
+    { label: 'Projecten', href: '/projecten' },
+    { label: 'Diensten', href: '/diensten' },
+    { label: 'Over ons', href: '/over-ons' },
+    { label: 'Showroom', href: '/showroom' },
+    { label: 'Contact', href: '/contact' },
+  ],
+  footerNavItems: [
+    { label: 'Projecten', href: '/projecten' },
+    { label: 'Diensten', href: '/diensten' },
+    { label: 'Over ons', href: '/over-ons' },
+    { label: 'Showroom', href: '/showroom' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contact', href: '/contact' },
+  ],
+  ctaLabel: 'Adviesgesprek',
+  ctaHref: '/contact',
 };
 
 export const mockBlogs: Blog[] = [

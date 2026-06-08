@@ -1,5 +1,5 @@
-import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog, Page } from './types';
-import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent, mockBlogs } from './mockData';
+import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog, Page, Navigation } from './types';
+import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent, mockBlogs, mockNavigation } from './mockData';
 
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
 
@@ -178,6 +178,15 @@ export async function getBlogBySlug(slug: string): Promise<Blog | null> {
     return res.docs[0] || null;
   } catch {
     return mockBlogs.find(b => b.slug === slug) || null;
+  }
+}
+
+export async function getNavigation(): Promise<Navigation> {
+  try {
+    const data = await fetchGlobal<Partial<Navigation>>('navigation');
+    return { ...mockNavigation, ...data };
+  } catch {
+    return mockNavigation;
   }
 }
 

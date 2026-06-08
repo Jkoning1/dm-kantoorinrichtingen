@@ -1,16 +1,8 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
+import { useNavigation } from '@/lib/NavigationContext';
 import { getMediaUrl } from '@/lib/payload';
-
-const navLinks = [
-  { name: 'Projecten', href: '/projecten' },
-  { name: 'Diensten', href: '/diensten' },
-  { name: 'Over ons', href: '/over-ons' },
-  { name: 'Showroom', href: '/showroom' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-];
 
 const LinkedInIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4" aria-hidden="true">
@@ -32,6 +24,7 @@ const FacebookIcon = () => (
 
 export default function Footer() {
   const settings = useSiteSettings();
+  const navigation = useNavigation();
 
   const desktopLogoUrl = settings.logoDesktop
     ? (typeof settings.logoDesktop === 'string' ? settings.logoDesktop : getMediaUrl(settings.logoDesktop))
@@ -97,11 +90,22 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-bold uppercase tracking-widest text-brand-accent mb-5">Navigatie</h4>
             <ul className="space-y-3">
-              {navLinks.map(link => (
-                <li key={link.name}>
-                  <Link to={link.href} className="text-black/70 hover:text-brand-accent transition-colors text-sm">
-                    {link.name}
-                  </Link>
+              {navigation.footerNavItems.map(item => (
+                <li key={item.href}>
+                  {item.href.startsWith('http') ? (
+                    <a
+                      href={item.href}
+                      target={item.openInNewTab ? '_blank' : '_self'}
+                      rel="noopener noreferrer"
+                      className="text-black/70 hover:text-brand-accent transition-colors text-sm"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link to={item.href} className="text-black/70 hover:text-brand-accent transition-colors text-sm">
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

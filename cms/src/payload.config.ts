@@ -10,6 +10,7 @@ import { FAQ } from './collections/FAQ';
 import { Blogs } from './collections/Blogs';
 import { SiteSettings } from './globals/SiteSettings';
 import { HomeContent } from './globals/HomeContent';
+import { Navigation } from './globals/Navigation';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
@@ -38,7 +39,7 @@ export default buildConfig({
     },
   ],
 
-  globals: [SiteSettings, HomeContent],
+  globals: [SiteSettings, HomeContent, Navigation],
 
   cors: [
     'http://localhost:3000',

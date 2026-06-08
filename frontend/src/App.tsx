@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import { SiteSettingsProvider } from '@/lib/SiteSettingsContext';
+import { NavigationProvider } from '@/lib/NavigationContext';
 import Home from '@/pages/Home';
 import Projects from '@/pages/Projects';
 import ProjectDetail from '@/pages/ProjectDetail';
@@ -44,6 +45,7 @@ export default function App() {
   return (
     <Router>
       <SiteSettingsProvider>
+        <NavigationProvider>
         <ScrollToTop />
         <div className="min-h-screen flex flex-col">
           <Navbar />
@@ -52,6 +54,7 @@ export default function App() {
           </main>
           <Footer />
         </div>
+        </NavigationProvider>
       </SiteSettingsProvider>
     </Router>
   );

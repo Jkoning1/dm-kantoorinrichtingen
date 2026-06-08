@@ -5,6 +5,10 @@ export const Pages: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    preview: (doc) => {
+      const base = process.env.PAYLOAD_PUBLIC_FRONTEND_URL || 'http://localhost:5173';
+      return doc.slug ? `${base}/${doc.slug}` : null;
+    },
   },
   access: { read: () => true },
   fields: [
