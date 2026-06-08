@@ -1,8 +1,8 @@
 [build]
-  builder = "DOCKERFILE"
-  dockerfilePath = "cms/Dockerfile"
+  builder = "NIXPACKS"
+  buildCommand = "bash build.sh"
 
 [deploy]
-  startCommand = "node dist/server.js"
+  startCommand = "node cms/dist/server.js"
   restartPolicyType = "ON_FAILURE"
   restartPolicyMaxRetries = 3
