@@ -5,7 +5,6 @@ import { Services } from './collections/Services';
 import { Sectors } from './collections/Sectors';
 import { Media } from './collections/Media';
 import { TeamMembers } from './collections/TeamMembers';
-import { Pages } from './collections/Pages';
 import { FAQ } from './collections/FAQ';
 import { Blogs } from './collections/Blogs';
 import { SiteSettings } from './globals/SiteSettings';
@@ -29,7 +28,6 @@ export default buildConfig({
     Blogs,
     Media,
     TeamMembers,
-    Pages,
     FAQ,
     {
       slug: 'users',

@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import type { Project, Sector } from '@/lib/types';
-import { getMediaUrl } from '@/lib/payload';
+import { getMediaUrlOrNull } from '@/lib/payload';
 import { cn } from '@/lib/utils';
 
 interface ProjectCardProps {
@@ -11,11 +11,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, className }: ProjectCardProps) {
-  const imageUrl = !project.heroImage
-    ? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80'
-    : typeof project.heroImage === 'string'
-      ? project.heroImage
-      : getMediaUrl(project.heroImage);
+  const imageUrl = getMediaUrlOrNull(project.heroImage);
   const imageAlt = !project.heroImage || typeof project.heroImage === 'string'
     ? project.title
     : project.heroImage.alt;
@@ -28,13 +24,15 @@ export default function ProjectCard({ project, className }: ProjectCardProps) {
       className={cn('group rounded-2xl overflow-hidden bg-white border border-black/5 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-shadow flex flex-col', className)}
     >
       <Link to={`/projecten/${project.slug}`} className="block flex flex-col flex-1">
-        <div className="aspect-[4/3] overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={imageAlt}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            loading="lazy"
-          />
+        <div className="aspect-[4/3] overflow-hidden bg-brand-surface">
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={imageAlt}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+            />
+          )}
         </div>
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-center gap-2 mb-3">

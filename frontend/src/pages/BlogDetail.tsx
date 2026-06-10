@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
 import { motion } from 'motion/react';
-import { getBlogBySlug, getMediaUrl } from '@/lib/payload';
+import { getBlogBySlug, getMediaUrlOrNull } from '@/lib/payload';
 import type { Blog } from '@/lib/types';
 import RichText from '@/components/RichText';
 import CTASection from '@/components/CTASection';
@@ -46,24 +46,22 @@ export default function BlogDetail() {
     );
   }
 
-  const imageUrl = !blog.heroImage
-    ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
-    : typeof blog.heroImage === 'string'
-      ? blog.heroImage
-      : getMediaUrl(blog.heroImage);
+  const imageUrl = getMediaUrlOrNull(blog.heroImage);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       {/* Hero image */}
-      <div className="pt-20">
-        <div className="relative h-64 md:h-[460px] overflow-hidden">
-          <img src={imageUrl} alt={blog.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      {imageUrl && (
+        <div className="pt-20">
+          <div className="relative h-64 md:h-[460px] overflow-hidden">
+            <img src={imageUrl} alt={blog.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Article body */}
-      <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className={`max-w-3xl mx-auto px-6 pb-12 ${imageUrl ? 'pt-12' : 'pt-32'}`}>
         <Link
           to="/blog"
           className="inline-flex items-center gap-2 text-sm text-brand-accent hover:gap-3 transition-all mb-8 focus-visible:ring-2 focus-visible:ring-brand-accent rounded"

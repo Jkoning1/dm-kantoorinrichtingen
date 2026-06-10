@@ -3,7 +3,7 @@ import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import SectionHeading from '@/components/SectionHeading';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
-import { getMediaUrl } from '@/lib/payload';
+import { getMediaUrlOrNull } from '@/lib/payload';
 import { useSEO } from '@/lib/useSEO';
 import * as LucideIcons from 'lucide-react';
 import type { LucideProps } from 'lucide-react';
@@ -20,9 +20,7 @@ export default function Showroom() {
 
   useSEO(settings.seoShowroomTitle, settings.seoShowroomDescription);
 
-  const showroomImgSrc = settings.showroomImage
-    ? (typeof settings.showroomImage === 'string' ? settings.showroomImage : getMediaUrl(settings.showroomImage))
-    : 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80';
+  const showroomImgSrc = getMediaUrlOrNull(settings.showroomImage);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
@@ -87,12 +85,16 @@ export default function Showroom() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="relative rounded-3xl overflow-hidden">
-                <img
-                  src={showroomImgSrc}
-                  alt="DM Kantoorinrichtingen showroom"
-                  className="w-full h-64 md:h-[500px] object-cover"
-                />
+              <div className="relative rounded-3xl overflow-hidden bg-brand-surface">
+                {showroomImgSrc ? (
+                  <img
+                    src={showroomImgSrc}
+                    alt="DM Kantoorinrichtingen showroom"
+                    className="w-full h-64 md:h-[500px] object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-64 md:h-[500px]" />
+                )}
                 <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-xl">
                   <div className="flex items-center gap-2 mb-4">
                     <LucideIcons.Clock className="w-4 h-4 text-brand-accent" />

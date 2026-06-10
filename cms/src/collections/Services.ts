@@ -6,7 +6,7 @@ export const Services: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'order', 'updatedAt'],
     preview: (doc) => {
-      const base = process.env.PAYLOAD_PUBLIC_FRONTEND_URL || 'http://localhost:5173';
+      const base = process.env.PAYLOAD_PUBLIC_FRONTEND_URL || 'https://dm-kantoorinrichtingen-production.up.railway.app';
       return doc.slug ? `${base}/diensten/${doc.slug}` : null;
     },
   },

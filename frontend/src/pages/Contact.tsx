@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import SectionHeading from '@/components/SectionHeading';
 import ContactForm from '@/components/ContactForm';
 import { useSiteSettings } from '@/lib/SiteSettingsContext';
-import { getTeamMembers, getMediaUrl } from '@/lib/payload';
+import { getTeamMembers, getMediaUrlOrNull } from '@/lib/payload';
 import type { TeamMember } from '@/lib/types';
 import { useSEO } from '@/lib/useSEO';
 
@@ -78,20 +78,25 @@ export default function Contact() {
                   {team.length > 0 && (
                     <div className="flex">
                       {team.map((member, i) => {
-                        const photoUrl = !member.photo
-                          ? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80'
-                          : typeof member.photo === 'string'
-                            ? member.photo
-                            : getMediaUrl(member.photo);
-                        return (
+                        const photoUrl = getMediaUrlOrNull(member.photo);
+                        const style = { marginLeft: i > 0 ? '-8px' : 0 };
+                        return photoUrl ? (
                           <img
                             key={member.id}
                             src={photoUrl}
                             alt={member.name}
                             className="w-12 h-12 rounded-full object-cover object-top border-2 border-white shadow-sm"
-                            style={{ marginLeft: i > 0 ? '-8px' : 0 }}
+                            style={style}
                             loading="lazy"
                           />
+                        ) : (
+                          <div
+                            key={member.id}
+                            className="w-12 h-12 rounded-full border-2 border-white shadow-sm bg-brand-accent text-white flex items-center justify-center text-sm font-bold"
+                            style={style}
+                          >
+                            {member.name.charAt(0)}
+                          </div>
                         );
                       })}
                     </div>

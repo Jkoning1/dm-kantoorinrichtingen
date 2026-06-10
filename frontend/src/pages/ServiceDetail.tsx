@@ -19,8 +19,8 @@ function DynamicIcon({ name }: { name: string }) {
   return <Icon className="w-6 h-6" />;
 }
 
-function getImageUrl(image: Service['heroImage']): string {
-  if (!image) return 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&q=80';
+function getImageUrl(image: Service['heroImage']): string | null {
+  if (!image) return null;
   if (typeof image === 'string') return image;
   return getMediaUrl(image);
 }
@@ -65,14 +65,14 @@ export default function ServiceDetail() {
     );
   }
 
-  // Build carousel images: heroImage first, then gallery
+  // Build carousel images: heroImage first, then gallery (skip items without a real image)
   const carouselImages = [
     { url: getImageUrl(service.heroImage), alt: getImageAlt(service.heroImage, service.title) },
     ...(service.gallery || []).map(item => ({
       url: getImageUrl(item.image as Service['heroImage']),
       alt: getImageAlt(item.image as Service['heroImage'], service.title),
     })),
-  ];
+  ].filter((img): img is { url: string; alt: string } => img.url !== null);
 
   const galleryItems = service.gallery || [];
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import SectionHeading from '@/components/SectionHeading';
 import CTASection from '@/components/CTASection';
-import { getTeamMembers, getHomeContent, getMediaUrl } from '@/lib/payload';
+import { getTeamMembers, getHomeContent, getMediaUrl, getMediaUrlOrNull } from '@/lib/payload';
 import type { TeamMember, HomeContent } from '@/lib/types';
 import { mockHomeContent } from '@/lib/mockData';
 import { useSEO } from '@/lib/useSEO';
@@ -41,15 +41,15 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <img
-                src={
-                  content.aboutVisieImage
-                    ? (typeof content.aboutVisieImage === 'string' ? content.aboutVisieImage : getMediaUrl(content.aboutVisieImage))
-                    : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80'
-                }
-                alt="DM Kantoorinrichtingen kantoor"
-                className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
-              />
+              {content.aboutVisieImage ? (
+                <img
+                  src={typeof content.aboutVisieImage === 'string' ? content.aboutVisieImage : getMediaUrl(content.aboutVisieImage)}
+                  alt="DM Kantoorinrichtingen kantoor"
+                  className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
+                />
+              ) : (
+                <div className="w-full h-64 md:h-[500px] rounded-3xl bg-brand-surface" />
+              )}
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -90,16 +90,10 @@ export default function About() {
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {team.map((member, i) => {
-              const photoUrl = !member.photo
-                ? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=80'
-                : typeof member.photo === 'string'
-                  ? member.photo
-                  : getMediaUrl(member.photo);
-              const photoAlt = !member.photo
+              const photoUrl = getMediaUrlOrNull(member.photo);
+              const photoAlt = !member.photo || typeof member.photo === 'string'
                 ? member.name
-                : typeof member.photo === 'string'
-                  ? member.name
-                  : member.photo.alt;
+                : member.photo.alt;
               return (
                 <motion.div
                   key={member.id}
@@ -109,13 +103,19 @@ export default function About() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-4">
-                    <img
-                      src={photoUrl}
-                      alt={photoAlt}
-                      className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
+                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 bg-brand-surface">
+                    {photoUrl ? (
+                      <img
+                        src={photoUrl}
+                        alt={photoAlt}
+                        className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-5xl font-bold font-display text-brand-accent/40">
+                        {member.name.charAt(0)}
+                      </div>
+                    )}
                   </div>
                   <h3 className="font-bold font-display text-lg">{member.name}</h3>
                   <p className="text-sm text-black/60">{member.role}</p>

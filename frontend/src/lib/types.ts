@@ -176,27 +176,6 @@ export interface Navigation {
   ctaHref?: string;
 }
 
-export interface PageBlock {
-  blockType: 'hero' | 'stats' | 'textImage';
-  id?: string;
-  heading?: string;
-  subheading?: string;
-  image?: Media | string;
-  items?: Array<{ id?: string; value: string; label: string }>;
-  text?: SlateNode[];
-  imagePosition?: 'left' | 'right';
-}
-
-export interface Page {
-  id: string;
-  title: string;
-  slug: string;
-  content?: SlateNode[];
-  sections?: PageBlock[];
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface PayloadResponse<T> {
   docs: T[];
   totalDocs: number;

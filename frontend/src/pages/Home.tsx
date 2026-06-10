@@ -9,7 +9,7 @@ import ProjectCard from '@/components/ProjectCard';
 import ServiceCard from '@/components/ServiceCard';
 import FAQ from '@/components/FAQ';
 import ContactForm from '@/components/ContactForm';
-import { getFeaturedProjects, getServices, getHomeContent, getTeamMembers, getMediaUrl } from '@/lib/payload';
+import { getFeaturedProjects, getServices, getHomeContent, getTeamMembers, getMediaUrl, getMediaUrlOrNull } from '@/lib/payload';
 import { mockHomeContent } from '@/lib/mockData';
 import { useSEO } from '@/lib/useSEO';
 import type { Project, Service, HomeContent, TeamMember } from '@/lib/types';
@@ -32,16 +32,14 @@ export default function Home() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        <img
-          src={
-            content.homeHeroImage
-              ? (typeof content.homeHeroImage === 'string' ? content.homeHeroImage : getMediaUrl(content.homeHeroImage))
-              : 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80'
-          }
-          alt="Modern kantoor"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-brand-primary">
+        {content.homeHeroImage && (
+          <img
+            src={typeof content.homeHeroImage === 'string' ? content.homeHeroImage : getMediaUrl(content.homeHeroImage)}
+            alt="Modern kantoor"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-transparent" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
           <motion.div
@@ -208,16 +206,16 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <img
-                src={
-                  content.homeSustainabilityImage
-                    ? (typeof content.homeSustainabilityImage === 'string' ? content.homeSustainabilityImage : getMediaUrl(content.homeSustainabilityImage))
-                    : 'https://images.unsplash.com/photo-1542601906897-a9b4c1116f99?w=800&q=80'
-                }
-                alt="Duurzame kantoorinrichting"
-                className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
-                loading="lazy"
-              />
+              {content.homeSustainabilityImage ? (
+                <img
+                  src={typeof content.homeSustainabilityImage === 'string' ? content.homeSustainabilityImage : getMediaUrl(content.homeSustainabilityImage)}
+                  alt="Duurzame kantoorinrichting"
+                  className="w-full h-64 md:h-[500px] object-cover rounded-3xl"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-64 md:h-[500px] rounded-3xl bg-white/5" />
+              )}
             </motion.div>
           </div>
         </div>
@@ -251,20 +249,25 @@ export default function Home() {
                 <div className="flex items-center gap-3">
                   <div className="flex">
                     {team.map((member, i) => {
-                      const photoUrl = !member.photo
-                        ? `https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&q=80`
-                        : typeof member.photo === 'string'
-                          ? member.photo
-                          : getMediaUrl(member.photo);
-                      return (
+                      const photoUrl = getMediaUrlOrNull(member.photo);
+                      const style = { marginLeft: i > 0 ? '-10px' : 0 };
+                      return photoUrl ? (
                         <img
                           key={member.id}
                           src={photoUrl}
                           alt={member.name}
                           className="w-14 h-14 rounded-full object-cover object-top border-2 border-white shadow-md"
-                          style={{ marginLeft: i > 0 ? '-10px' : 0 }}
+                          style={style}
                           loading="lazy"
                         />
+                      ) : (
+                        <div
+                          key={member.id}
+                          className="w-14 h-14 rounded-full border-2 border-white shadow-md bg-brand-accent text-white flex items-center justify-center text-sm font-bold"
+                          style={style}
+                        >
+                          {member.name.charAt(0)}
+                        </div>
                       );
                     })}
                   </div>

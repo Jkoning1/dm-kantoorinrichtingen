@@ -15,7 +15,6 @@ import Showroom from '@/pages/Showroom';
 import Contact from '@/pages/Contact';
 import BlogList from '@/pages/BlogList';
 import BlogDetail from '@/pages/BlogDetail';
-import DynamicPage from '@/pages/DynamicPage';
 import NotFound from '@/pages/NotFound';
 
 function AnimatedRoutes() {
@@ -33,8 +32,6 @@ function AnimatedRoutes() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<BlogList />} />
         <Route path="/blog/:slug" element={<BlogDetail />} />
-        {/* Dynamic CMS pages — renders page if found, 404 if not */}
-        <Route path="/:slug" element={<DynamicPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>

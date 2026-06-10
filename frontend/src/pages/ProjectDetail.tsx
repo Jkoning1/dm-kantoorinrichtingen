@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, MapPin, Clock, Users, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
-import { getProjectBySlug, getMediaUrl } from '@/lib/payload';
+import { getProjectBySlug, getMediaUrl, getMediaUrlOrNull } from '@/lib/payload';
 import type { Sector } from '@/lib/types';
 import type { Project } from '@/lib/types';
 import ImageGallery from '@/components/ImageGallery';
@@ -46,17 +46,11 @@ export default function ProjectDetail() {
     );
   }
 
-  const heroUrl = !project.heroImage
-    ? 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80'
-    : typeof project.heroImage === 'string'
-      ? project.heroImage
-      : getMediaUrl(project.heroImage);
+  const heroUrl = getMediaUrlOrNull(project.heroImage);
 
-  const heroAlt = !project.heroImage
+  const heroAlt = !project.heroImage || typeof project.heroImage === 'string'
     ? project.title
-    : typeof project.heroImage === 'string'
-      ? project.title
-      : project.heroImage.alt;
+    : project.heroImage.alt;
 
   const hasChallenge = project.challenge && Array.isArray(project.challenge) && project.challenge.length > 0;
   const hasSolution = project.solution && Array.isArray(project.solution) && project.solution.length > 0;
@@ -66,7 +60,11 @@ export default function ProjectDetail() {
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }}>
       {/* Hero */}
       <div className="pt-20">
-        <img src={heroUrl} alt={heroAlt} className="w-full aspect-[3/2] sm:aspect-video md:aspect-[21/9] object-cover" />
+        <div className="w-full aspect-[3/2] sm:aspect-video md:aspect-[21/9] bg-brand-surface">
+          {heroUrl && (
+            <img src={heroUrl} alt={heroAlt} className="w-full h-full object-cover" />
+          )}
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">

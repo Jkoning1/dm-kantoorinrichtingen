@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import type { Service } from '@/lib/types';
-import { getMediaUrl } from '@/lib/payload';
+import { getMediaUrlOrNull } from '@/lib/payload';
 import * as LucideIcons from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { LucideProps } from 'lucide-react';
@@ -20,11 +20,7 @@ function ServiceIcon({ name }: { name: string }) {
 }
 
 export default function ServiceCard({ service, className }: ServiceCardProps) {
-  const imageUrl = !service.heroImage
-    ? 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=800&q=80'
-    : typeof service.heroImage === 'string'
-      ? service.heroImage
-      : getMediaUrl(service.heroImage);
+  const imageUrl = getMediaUrlOrNull(service.heroImage);
   const imageAlt = !service.heroImage || typeof service.heroImage === 'string'
     ? service.title
     : service.heroImage.alt;
@@ -34,14 +30,16 @@ export default function ServiceCard({ service, className }: ServiceCardProps) {
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.3 }}
-        className="group relative rounded-2xl overflow-hidden min-h-[320px] flex flex-col justify-end h-full"
+        className="group relative rounded-2xl overflow-hidden min-h-[320px] flex flex-col justify-end h-full bg-brand-primary"
       >
-        <img
-          src={imageUrl}
-          alt={imageAlt}
-          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-          loading="lazy"
-        />
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt={imageAlt}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            loading="lazy"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
         <div className="relative z-10 p-6">
           <div className="w-10 h-10 bg-brand-accent rounded-xl flex items-center justify-center mb-4 text-white group-hover:bg-brand-secondary transition-colors">

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import SectionHeading from '@/components/SectionHeading';
-import { getBlogs, getMediaUrl } from '@/lib/payload';
+import { getBlogs, getMediaUrlOrNull } from '@/lib/payload';
 import type { Blog } from '@/lib/types';
 import { useSEO } from '@/lib/useSEO';
 
@@ -51,11 +51,7 @@ export default function BlogList() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {blogs.map((blog, i) => {
-                const imageUrl = !blog.heroImage
-                  ? 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'
-                  : typeof blog.heroImage === 'string'
-                    ? blog.heroImage
-                    : getMediaUrl(blog.heroImage);
+                const imageUrl = getMediaUrlOrNull(blog.heroImage);
 
                 return (
                   <motion.article
@@ -66,13 +62,15 @@ export default function BlogList() {
                     transition={{ duration: 0.5, delay: i * 0.08 }}
                   >
                     <Link to={`/blog/${blog.slug}`} className="group block">
-                      <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-5">
-                        <img
-                          src={imageUrl}
-                          alt={blog.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
+                      <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-5 bg-brand-surface">
+                        {imageUrl && (
+                          <img
+                            src={imageUrl}
+                            alt={blog.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        )}
                         {blog.featured && (
                           <div className="absolute top-4 left-4 bg-brand-accent text-white text-xs font-bold px-3 py-1 rounded-full">
                             Uitgelicht

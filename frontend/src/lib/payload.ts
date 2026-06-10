@@ -1,4 +1,4 @@
-import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog, Page, Navigation } from './types';
+import type { PayloadResponse, Project, Service, TeamMember, FAQItem, SiteSettings, HomeContent, Sector, Blog, Navigation } from './types';
 import { mockProjects, mockServices, mockTeamMembers, mockFAQItems, mockSiteSettings, mockHomeContent, mockBlogs, mockNavigation } from './mockData';
 
 const CMS_URL = import.meta.env.VITE_PAYLOAD_URL || '';
@@ -190,14 +190,6 @@ export async function getNavigation(): Promise<Navigation> {
   }
 }
 
-export async function getPageBySlug(slug: string): Promise<Page | null> {
-  const res = await fetchAPI<PayloadResponse<Page>>('pages', {
-    'where[slug][equals]': slug,
-    depth: '2',
-  });
-  return res.docs[0] || null;
-}
-
 export async function getHomeContent(): Promise<HomeContent> {
   try {
     const data = await fetchGlobal<Partial<HomeContent>>('home-content');
@@ -211,4 +203,10 @@ export function getMediaUrl(media: { url: string } | string): string {
   if (typeof media === 'string') return `${CMS_URL}/media/${media}`;
   if (media.url.startsWith('http')) return media.url;
   return `${CMS_URL}${media.url}`;
+}
+
+/** Returns the resolved media URL, or null when no real image is set (so callers can show a neutral placeholder instead of a stock fallback). */
+export function getMediaUrlOrNull(media: { url: string } | string | undefined | null): string | null {
+  if (!media) return null;
+  return getMediaUrl(media);
 }
