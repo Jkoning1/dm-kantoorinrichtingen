@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ChevronRight, MapPin, Clock, Users, Calendar } from 'lucide-react';
 import { motion } from 'motion/react';
-import { getProjectBySlug, getMediaUrl, getMediaUrlOrNull } from '@/lib/payload';
+import { getProjectBySlug, getMediaUrlOrNull } from '@/lib/payload';
 import type { Sector } from '@/lib/types';
 import type { Project } from '@/lib/types';
 import ImageGallery from '@/components/ImageGallery';
+import ProductGallery from '@/components/ProductGallery';
 import CTASection from '@/components/CTASection';
 import RichText from '@/components/RichText';
 import { useSEO } from '@/lib/useSEO';
@@ -190,54 +191,8 @@ export default function ProjectDetail() {
         <section className="py-16 bg-white border-t border-black/5">
           <div className="max-w-7xl mx-auto px-6">
             <h2 className="text-2xl font-bold font-display mb-2">Gebruikte producten</h2>
-            <p className="text-sm text-black/40 mb-8">De meubelen en producten toegepast in dit project</p>
-
-            {/* Mobile: horizontal scroll */}
-            <div className="md:hidden -mx-6 px-6 overflow-x-auto snap-x snap-mandatory flex gap-4 pb-3 scrollbar-none">
-              {project.productGallery.map((item, i) => {
-                const imgUrl = typeof item.image === 'string' ? item.image : getMediaUrl(item.image);
-                const imgAlt = typeof item.image === 'string' ? item.name : (item.image as { alt: string }).alt || item.name;
-                return (
-                  <div key={item.id || i} className="snap-start shrink-0 w-[58vw] bg-white rounded-2xl border border-black/5 shadow-sm overflow-hidden">
-                    <div className="aspect-square bg-gray-50 flex items-center justify-center p-5">
-                      <img src={imgUrl} alt={imgAlt} className="w-full h-full object-contain" loading="lazy" />
-                    </div>
-                    <div className="p-4">
-                      {item.brand && <p className="text-xs font-semibold uppercase tracking-widest text-black/30 mb-0.5">{item.brand}</p>}
-                      <h3 className="font-semibold text-sm leading-snug text-brand-primary">{item.name}</h3>
-                      {item.description && <p className="text-xs text-black/40 mt-1 leading-relaxed">{item.description}</p>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Desktop: grid */}
-            <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-5">
-              {project.productGallery.map((item, i) => {
-                const imgUrl = typeof item.image === 'string' ? item.image : getMediaUrl(item.image);
-                const imgAlt = typeof item.image === 'string' ? item.name : (item.image as { alt: string }).alt || item.name;
-                return (
-                  <motion.div
-                    key={item.id || i}
-                    className="bg-white rounded-2xl border border-black/5 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                    initial={{ opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: i * 0.07 }}
-                  >
-                    <div className="aspect-square bg-gray-50 flex items-center justify-center p-6">
-                      <img src={imgUrl} alt={imgAlt} className="w-full h-full object-contain" loading="lazy" />
-                    </div>
-                    <div className="p-4">
-                      {item.brand && <p className="text-xs font-semibold uppercase tracking-widest text-black/30 mb-0.5">{item.brand}</p>}
-                      <h3 className="font-semibold text-sm leading-snug text-brand-primary">{item.name}</h3>
-                      {item.description && <p className="text-xs text-black/40 mt-1 leading-relaxed">{item.description}</p>}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+            <p className="text-sm text-black/40 mb-8">Klik op een product om de afbeelding te vergroten</p>
+            <ProductGallery items={project.productGallery} />
           </div>
         </section>
       )}
