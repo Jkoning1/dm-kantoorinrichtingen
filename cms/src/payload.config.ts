@@ -11,8 +11,19 @@ import { SiteSettings } from './globals/SiteSettings';
 import { HomeContent } from './globals/HomeContent';
 import { Navigation } from './globals/Navigation';
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://www.dmkantoorinrichtingen.nl',
+  'https://dmkantoorinrichtingen.nl',
+  'https://dm-kantoorinrichtingen-production.up.railway.app',
+  process.env.FRONTEND_URL || '',
+  process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
+].filter(Boolean) as string[];
+
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
+  // Leeg in de admin-build → admin gebruikt relatieve /api-paden en werkt op elk domein
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
 
   admin: {
     user: 'users',
@@ -39,17 +50,9 @@ export default buildConfig({
 
   globals: [SiteSettings, HomeContent, Navigation],
 
-  cors: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    process.env.FRONTEND_URL || '',
-  ].filter(Boolean) as string[],
+  cors: allowedOrigins,
 
-  csrf: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    process.env.FRONTEND_URL || '',
-  ].filter(Boolean) as string[],
+  csrf: allowedOrigins,
 
   upload: {
     limits: {

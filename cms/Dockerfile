@@ -6,8 +6,8 @@ COPY frontend/ .
 RUN npm run build
 
 FROM node:20-alpine AS cms-build
-# PAYLOAD_PUBLIC_* worden tijdens de admin-build in de bundle gebakken
-ARG PAYLOAD_PUBLIC_SERVER_URL
+# PAYLOAD_PUBLIC_* worden tijdens de admin-build in de bundle gebakken.
+# PAYLOAD_PUBLIC_SERVER_URL bewust niet: dan gebruikt de admin relatieve paden (geen CORS per domein).
 ARG PAYLOAD_PUBLIC_FRONTEND_URL
 WORKDIR /app
 COPY cms/package*.json ./
