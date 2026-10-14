@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon --watch src --ext ts --exec ts-node src/server.ts",
-    "build": "tsc",
+    "build": "tsc && npm run build:admin",
+    "build:admin": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "start": "node dist/server.js",
     "seed": "PAYLOAD_CONFIG_PATH=src/payload.config.ts ts-node src/seed.ts"
   },
